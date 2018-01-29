@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<!-- 注册RequestMappingHandlerMapping、RequestMappingHandlerAdapter -->
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="prefixJson" value="false" />
+				<property name="supportedMediaTypes">
+					<list>
+<!-- 					    <value>text/html;charset=UTF-8</value> -->
+						<value>application/json;charset=UTF-8</value>
+						<value>text/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<!-- Freemarker配置 start  -->
+		<bean id="freemarkerConfig"
+			class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+			<property name="templateLoaderPath" value="" />
+			<property name="defaultEncoding" value="UTF-8" />
+		</bean>
+
+						<!--	视图解释器 -->
+		<bean id="viewResolverFreemarker"
+			class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+			<property name="prefix" value="/WEB-INF/" />
+			<property name="suffix" value=".html" />
+			<property name="contentType" value="text/html; charset=UTF-8" />
+			<property name="requestContextAttribute" value="rc" />
+			<property name="exposeRequestAttributes" value="false" />
+			<property name="exposeSessionAttributes" value="false" />
+			<property name="exposeSpringMacroHelpers" value="false" />
+		</bean> 
+			<!-- Freemarker配置 end -->
+	     
+	<!-- 扫描controller层包 -->
+	<context:component-scan base-package="com.wm.controller" />
+
+	<!-- 静态资源的访问 -->
+	<mvc:resources location="/webapp/" mapping="/app/**"/> 
+    
+	<!-- 全局拦截器 -->
+	<mvc:interceptors>
+		<bean class="com.wm.inteceptor.GlobalInterceptor" />
+	</mvc:interceptors>
+
+</beans>
+    

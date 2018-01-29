@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wm.mapper.SysUserRoleMapper">
+
+	<resultMap type="com.wm.mapper.entity.SysUserRole" id="sysUserRole">
+		<result property="id" column="ID" />	
+		<result property="userId" column="USER_ID" />	
+		<result property="roleId" column="ROLE_ID" />	
+		<result property="timeStamp" column="TIME_STAMP" />	
+		<result property="deleteMark" column="DELETE_MARK" />	
+	</resultMap>
+
+
+	<sql id="Table_Fields">
+		 ID,USER_ID,ROLE_ID,TIME_STAMP,DELETE_MARK
+	</sql>
+
+    <sql id="Where_Conditions">
+		<where>
+			1=1
+			<if test="id != null"> 
+				AND ID = #{id} 
+			</if>	
+			<if test="userId != null"> 
+				AND USER_ID = #{userId} 
+			</if>	
+			<if test="roleId != null"> 
+				AND ROLE_ID = #{roleId} 
+			</if>	
+			<if test="timeStamp != null"> 
+				AND TIME_STAMP = #{timeStamp} 
+			</if>	
+			<if test="deleteMark != null"> 
+				AND DELETE_MARK = #{deleteMark} 
+			</if>	
+		</where>
+	</sql>
+	
+	<sql id="Set_Values">
+		<set >
+			<if test="id != null"> 
+				ID = #{id}, 
+			</if>	
+			<if test="userId != null"> 
+				USER_ID = #{userId}, 
+			</if>	
+			<if test="roleId != null"> 
+				ROLE_ID = #{roleId}, 
+			</if>	
+			<if test="timeStamp != null"> 
+				TIME_STAMP = #{timeStamp}, 
+			</if>	
+			<if test="deleteMark != null"> 
+				DELETE_MARK = #{deleteMark} 
+			</if>	
+		</set>
+	</sql>
+	
+	<insert id="insert" parameterType="com.wm.mapper.entity.SysUserRole" >
+			<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">select uuid()</selectKey>
+			INSERT INTO SYS_USER_ROLE
+			  (ID,USER_ID,ROLE_ID,TIME_STAMP,DELETE_MARK)
+			VALUES 
+			  (#{id},#{userId},#{roleId},#{timeStamp},#{deleteMark})
+	</insert>
+	
+	<delete id="deleteTrueByKey" parameterType="java.lang.String" >
+		<![CDATA[
+			DELETE FROM SYS_USER_ROLE
+			WHERE ID = #{id}
+		]]>
+	</delete>
+	
+	<update id="deleteFalseByKey" parameterType="java.lang.String">
+		<![CDATA[
+			UPDATE SYS_USER_ROLE SET DELETE_MARK = 1
+			WHERE ID = #{id}
+		]]>
+	</update>
+	
+	<update id="update" parameterType="com.wm.mapper.entity.SysUserRole" >
+		UPDATE SYS_USER_ROLE
+		<include refid="Set_Values" />
+		WHERE ID = #{id}
+	</update>
+
+	<select id="queryByKey" parameterType="java.lang.String" resultMap="sysUserRole">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM SYS_USER_ROLE
+ 		WHERE ID = #{id}
+	</select>
+	
+	<select id="queryByCondition" parameterType="com.wm.mapper.entity.SysUserRole" resultMap="sysUserRole">
+		SELECT 
+		<include refid="Table_Fields" />
+		FROM SYS_USER_ROLE 
+		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="queryByPage" parameterType="java.util.Map" resultMap="sysUserRole">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM SYS_USER_ROLE
+ 		<include refid="Where_Conditions" />
+ 		ORDER BY TIME_STAMP DESC
+	</select>
+	
+	<select id="queryCount" parameterType="com.wm.mapper.entity.SysUserRole" resultType="java.lang.Long">
+		SELECT COUNT(ID)
+ 		FROM SYS_USER_ROLE
+ 		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="queryAutzeUserList" parameterType="java.util.Map" resultType="java.util.Map">
+    SELECT * FROM (
+		SELECT
+			u.id,
+			u.u_account AS uAccount,
+			u.u_name AS uName,
+			u.u_email AS uEmail,
+			u.u_tel AS uTel,
+			u.u_type AS uType,
+			u.u_status AS uStatus,
+			u.create_time AS createTime,
+			ur.id AS urId,
+			min(r.role_level) as roleLevel,
+			group_concat(DISTINCT r.id) AS rId,
+			group_concat(DISTINCT r.role_name) AS roleName,
+			(
+				CASE
+				WHEN group_concat(DISTINCT r.id) LIKE concat('%',#{roleId},'%')
+				THEN
+					1
+				ELSE
+					0
+				END
+			) AS autzeMark
+		FROM
+			sys_user u
+		LEFT JOIN sys_user_role ur ON ur.user_id = u.id
+		LEFT JOIN sys_role r ON r.id = ur.role_id
+		GROUP BY u.id
+ 		ORDER BY u.create_time DESC
+ 		) t
+ 		WHERE   roleLevel <![CDATA[ > ]]> #{roleLevel} OR roleLevel IS NULL
+	</select>
+	
+	
+	<delete id="deleteByCondition" parameterType="com.wm.mapper.entity.SysUserRole" >
+		 
+			DELETE FROM SYS_USER_ROLE
+			
+			<include refid="Where_Conditions" />
+		 
+	</delete>
+</mapper>

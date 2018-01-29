@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../common/head_resources.html">
+</head>
+<body>
+
+	<div class="btn-toolbar btn-overwrite">
+		<div class="btn-group">
+			<button id='batautzeuser' name='batautzeuser' class="btn btn-danger">
+				<i class="icon icon-trash"></i>授权
+			</button>
+			<button id='batcancelautze' name='batcancelautze' class="btn">
+				<i class="icon icon-edit"></i>取消授权
+			</button>
+		</div>
+		<form id="searchForm">
+			<input type="hidden" id="roleId" name="roleId" value="${data!''}" readonly="readonly" placeholder="角色id">
+			<div class="input-group">
+				<input type="text" id="sear_uAccount" name="uAccount" class="form-control" value="${(param.uAccount)!''}" placeholder="账号">
+			</div>
+			<div class="input-group">
+				<input type="text" id="sear_uName" name="uName" class="form-control" value="${(param.uName)!''}" placeholder="姓名">
+			</div>
+			<div class="input-group">
+				<input type="text" id="sear_uTel" name="uTel" class="form-control" value="${(param.uTel)!''}" placeholder="电话">
+			</div>
+			<div class="input-group">
+				<input type="text" id="sear_uStatus" name="uStatus" class="form-control" value="${(param.uStatus)!''}" placeholder="状态">
+			</div>
+		</form>
+		<div class="btn-group">
+			<button class="btn btn-primary" onclick="AuthorizeList.reLoadData(1)">
+				<i class="icon icon-search"></i>搜索
+			</button>
+			<button class="btn">
+				<i class="icon icon-undo"></i>重置
+			</button>
+		</div>
+	</div>
+
+	<table class="table table-bordered table-condensed datatable ">
+	</table>
+	<div id="pages"></div>
+
+	<script src="${basePath}/app/plugin/myutils/data_model.js"></script>
+	<script src="${basePath}/app/plugin/myutils/dialog.js"></script>
+	<script src="${basePath}/app/plugin/myutils/page_tool.js"></script>
+	<script src="${basePath}/app/main/admin/users/authorize_list.js"></script>
+</body>
+</html>

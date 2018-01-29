@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../common/head_resources.html">
+</head>
+<body>
+
+	<div class="btn-toolbar btn-overwrite">
+
+		<div class="btn-group">
+			<button id='batdel' name='batdel' class="btn btn-danger">
+				<i class="icon icon-trash"></i>删除
+			</button>
+		</div>
+		<form id="searchForm">
+			<div class="input-group">
+				<input type="text" id="sear_roleName" name="roleName" class="form-control" value="${(param.roleName)!''}" placeholder="角色名称">
+			</div>
+			<div class="input-group">
+				<input type="text" id="sear_roleLevel" name="roleLevel" class="form-control" value="${(param.roleLevel)!''}" placeholder="级别">
+			</div>
+		</form>
+		<div class="btn-group">
+			<button class="btn btn-primary" onclick="RoleList.reLoadData(1)">
+				<i class="icon icon-search"></i>搜索
+			</button>
+			<button class="btn">
+				<i class="icon icon-undo"></i>重置
+			</button>
+		</div>
+	</div>
+
+	<!-- table-bordered -->
+	<table class="table datatable table-bordered">
+	</table>
+	<div id="pages"></div>
+
+	<script src="${basePath}/app/plugin/myutils/data_model.js"></script>
+	<script src="${basePath}/app/plugin/myutils/dialog.js"></script>
+	<script src="${basePath}/app/plugin/myutils/page_tool.js"></script>
+	<script src="${basePath}/app/main/admin/comment/video_comt_list.js"></script>
+	<script src="${basePath}/app/main/admin/users/role_add.js"></script>
+</body>
+</html>

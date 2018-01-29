@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../common/head_resources.html">
+</head>
+<body>
+
+	<div class="btn-toolbar btn-overwrite">
+
+		<div class="btn-group">
+			<button id='adduser' class="btn btn-primary" onclick="UserList.addUserWindow()">
+				<i class="icon icon-expand-alt"></i>新增
+			</button>
+			<button name='edituser' class="btn">
+				<i class="icon icon-edit"></i>编辑
+			</button>
+			<button id='batdeluser' name='batDeluser' class="btn btn-danger">
+				<i class="icon icon-trash"></i>删除
+			</button>
+		</div>
+		<form id="searchForm">
+			<div class="input-group">
+				<input type="text" id="sear_uAccount" name="uAccount" class="form-control" value="${(param.uAccount)!''}" placeholder="账号">
+			</div>
+			<div class="input-group">
+				<input type="text" id="sear_uName" name="uName" class="form-control" value="${(param.uName)!''}" placeholder="姓名">
+			</div>
+			<div class="input-group">
+				<input type="text" id="sear_uTel" name="uTel" class="form-control" value="${(param.uTel)!''}" placeholder="电话">
+			</div>
+			<div class="input-group">
+				<input type="text" id="sear_uStatus" name="uStatus" class="form-control" value="${(param.uStatus)!''}" placeholder="状态">
+			</div>
+		</form>
+		<div class="btn-group">
+			<button class="btn btn-primary" onclick="UserList.reLoadData(1)">
+				<i class="icon icon-search"></i>搜索
+			</button>
+			<button class="btn">
+				<i class="icon icon-undo"></i>重置
+			</button>
+		</div>
+	</div>
+
+	<!-- table-bordered -->
+	<table class="table datatable ">
+	</table>
+	<div id="pages"></div>
+
+	<script src="${basePath}/app/plugin/myutils/data_model.js"></script>
+	<script src="${basePath}/app/plugin/myutils/dialog.js"></script>
+	<script src="${basePath}/app/plugin/myutils/page_tool.js"></script>
+	<script src="${basePath}/app/main/admin/webnews/web_news_list.js"></script>
+	<script src="${basePath}/app/main/admin/users/user_add.js"></script>
+</body>
+</html>

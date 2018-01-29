@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wm.mapper.VideoCommentMapper">
+
+	<resultMap type="com.wm.mapper.entity.VideoComment" id="videoComment">
+		<result property="id" column="ID" />	
+		<result property="topicId" column="TOPIC_ID" />	
+		<result property="fromUid" column="FROM_UID" />	
+		<result property="replyUid" column="REPLY_UID" />	
+		<result property="content" column="CONTENT" />	
+		<result property="replyGroup" column="REPLY_GROUP" />	
+		<result property="replyedId" column="REPLYED_ID" />	
+		<result property="vcType" column="VC_TYPE" />	
+		<result property="likeCount" column="LIKE_COUNT" />	
+		<result property="dislikeCount" column="DISLIKE_COUNT" />	
+		<result property="comtUname" column="COMT_UNAME" />	
+		<result property="comtUpic" column="COMT_UPIC" />	
+		<result property="repliedUname" column="REPLIED_UNAME" />	
+		<result property="repliedUpic" column="REPLIED_UPIC" />	
+		<result property="createTime" column="CREATE_TIME" />	
+		<result property="timeStamp" column="TIME_STAMP" />	
+		<result property="deleteMark" column="DELETE_MARK" />	
+	</resultMap>
+
+
+	<sql id="Table_Fields">
+		 ID,TOPIC_ID,FROM_UID,REPLY_UID,CONTENT,REPLY_GROUP,REPLYED_ID,VC_TYPE,LIKE_COUNT,DISLIKE_COUNT,COMT_UNAME,COMT_UPIC,REPLIED_UNAME,REPLIED_UPIC,CREATE_TIME,TIME_STAMP,DELETE_MARK
+	</sql>
+
+    <sql id="Where_Conditions">
+		<where>
+			1=1
+			<if test="id != null"> 
+				AND ID = #{id} 
+			</if>	
+			<if test="topicId != null"> 
+				AND TOPIC_ID = #{topicId} 
+			</if>	
+			<if test="fromUid != null"> 
+				AND FROM_UID = #{fromUid} 
+			</if>	
+			<if test="replyUid != null"> 
+				AND REPLY_UID = #{replyUid} 
+			</if>	
+			<if test="content != null"> 
+				AND CONTENT = #{content} 
+			</if>	
+			<if test="replyGroup != null"> 
+				AND REPLY_GROUP = #{replyGroup} 
+			</if>	
+			<if test="replyedId != null"> 
+				AND REPLYED_ID = #{replyedId} 
+			</if>	
+			<if test="vcType != null"> 
+				AND VC_TYPE = #{vcType} 
+			</if>	
+			<if test="likeCount != null"> 
+				AND LIKE_COUNT = #{likeCount} 
+			</if>	
+			<if test="dislikeCount != null"> 
+				AND DISLIKE_COUNT = #{dislikeCount} 
+			</if>	
+			<if test="comtUname != null"> 
+				AND COMT_UNAME = #{comtUname} 
+			</if>	
+			<if test="comtUpic != null"> 
+				AND COMT_UPIC = #{comtUpic} 
+			</if>	
+			<if test="repliedUname != null"> 
+				AND REPLIED_UNAME = #{repliedUname} 
+			</if>	
+			<if test="repliedUpic != null"> 
+				AND REPLIED_UPIC = #{repliedUpic} 
+			</if>	
+			<if test="createTime != null"> 
+				AND CREATE_TIME = #{createTime} 
+			</if>	
+			<if test="timeStamp != null"> 
+				AND TIME_STAMP = #{timeStamp} 
+			</if>	
+			<if test="deleteMark != null"> 
+				AND DELETE_MARK = #{deleteMark} 
+			</if>	
+		</where>
+	</sql>
+	
+	<sql id="Set_Values">
+		<set >
+			<if test="id != null"> 
+				ID = #{id}, 
+			</if>	
+			<if test="topicId != null"> 
+				TOPIC_ID = #{topicId}, 
+			</if>	
+			<if test="fromUid != null"> 
+				FROM_UID = #{fromUid}, 
+			</if>	
+			<if test="replyUid != null"> 
+				REPLY_UID = #{replyUid}, 
+			</if>	
+			<if test="content != null"> 
+				CONTENT = #{content}, 
+			</if>	
+			<if test="replyGroup != null"> 
+				REPLY_GROUP = #{replyGroup}, 
+			</if>	
+			<if test="replyedId != null"> 
+				REPLYED_ID = #{replyedId}, 
+			</if>	
+			<if test="vcType != null"> 
+				VC_TYPE = #{vcType}, 
+			</if>	
+			<if test="likeCount != null"> 
+				LIKE_COUNT = #{likeCount}, 
+			</if>	
+			<if test="dislikeCount != null"> 
+				DISLIKE_COUNT = #{dislikeCount}, 
+			</if>	
+			<if test="comtUname != null"> 
+				COMT_UNAME = #{comtUname}, 
+			</if>	
+			<if test="comtUpic != null"> 
+				COMT_UPIC = #{comtUpic}, 
+			</if>	
+			<if test="repliedUname != null"> 
+				REPLIED_UNAME = #{repliedUname}, 
+			</if>	
+			<if test="repliedUpic != null"> 
+				REPLIED_UPIC = #{repliedUpic}, 
+			</if>	
+			<if test="createTime != null"> 
+				CREATE_TIME = #{createTime}, 
+			</if>	
+			<if test="timeStamp != null"> 
+				TIME_STAMP = #{timeStamp}, 
+			</if>	
+			<if test="deleteMark != null"> 
+				DELETE_MARK = #{deleteMark}, 
+			</if>	
+		</set>
+	</sql>
+	
+	<insert id="insert" parameterType="com.wm.mapper.entity.VideoComment" >
+			<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">select uuid()</selectKey>
+			INSERT INTO VIDEO_COMMENT
+			  (ID,TOPIC_ID,FROM_UID,REPLY_UID,CONTENT,REPLY_GROUP,REPLYED_ID,VC_TYPE,LIKE_COUNT,DISLIKE_COUNT,COMT_UNAME,COMT_UPIC,REPLIED_UNAME,REPLIED_UPIC,CREATE_TIME,TIME_STAMP,DELETE_MARK)
+			VALUES 
+			  (#{id},#{topicId},#{fromUid},#{replyUid},#{content},#{replyGroup},#{replyedId},#{vcType},#{likeCount},#{dislikeCount},#{comtUname},#{comtUpic},#{repliedUname},#{repliedUpic},#{createTime},#{timeStamp},#{deleteMark})
+	</insert>
+	
+	<delete id="deleteTrueByKey" parameterType="java.lang.String" >
+		<![CDATA[
+			DELETE FROM VIDEO_COMMENT
+			WHERE ID = #{id}
+		]]>
+	</delete>
+	
+	<update id="deleteFalseByKey" parameterType="java.lang.String">
+		<![CDATA[
+			UPDATE VIDEO_COMMENT SET DELETE_MARK = 1
+			WHERE ID = #{id}
+		]]>
+	</update>
+	
+	<update id="update" parameterType="com.wm.mapper.entity.VideoComment" >
+		UPDATE VIDEO_COMMENT
+		<include refid="Set_Values" />
+		WHERE ID = #{id}
+	</update>
+
+	<select id="queryByKey" parameterType="java.lang.String" resultMap="videoComment">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM VIDEO_COMMENT
+ 		WHERE ID = #{id}
+	</select>
+	
+	<select id="queryByCondition" parameterType="com.wm.mapper.entity.VideoComment" resultMap="videoComment">
+		SELECT 
+		<include refid="Table_Fields" />
+		FROM VIDEO_COMMENT 
+		<include refid="Where_Conditions" />
+		ORDER BY CREATE_TIME DESC
+	</select>
+	
+	<select id="queryByPage" parameterType="java.util.Map" resultMap="videoComment">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM VIDEO_COMMENT
+ 		<include refid="Where_Conditions" />
+ 		ORDER BY CREATE_TIME DESC
+	</select>
+	
+	<select id="queryCount" parameterType="com.wm.mapper.entity.VideoComment" resultType="java.lang.Long">
+		SELECT COUNT(ID)
+ 		FROM VIDEO_COMMENT
+ 		<include refid="Where_Conditions" />
+	</select>
+</mapper>

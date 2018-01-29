@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wm.mapper.SysActionMapper">
+
+	<resultMap type="com.wm.mapper.entity.SysAction" id="sysAction">
+		<result property="id" column="ID" />	
+		<result property="actCode" column="ACT_CODE" />	
+		<result property="actName" column="ACT_NAME" />	
+		<result property="actType" column="ACT_TYPE" />	
+		<result property="menuId" column="MENU_ID" />	
+		<result property="createTime" column="CREATE_TIME" />	
+		<result property="timeStamp" column="TIME_STAMP" />	
+		<result property="deleteMark" column="DELETE_MARK" />	
+	</resultMap>
+
+
+	<sql id="Table_Fields">
+		 ID,ACT_CODE,ACT_NAME,ACT_TYPE,MENU_ID,CREATE_TIME,TIME_STAMP,DELETE_MARK
+	</sql>
+
+    <sql id="Where_Conditions">
+		<where>
+			1=1
+			<if test="id != null"> 
+				AND ID = #{id} 
+			</if>	
+			<if test="actCode != null"> 
+				AND ACT_CODE = #{actCode} 
+			</if>	
+			<if test="actName != null"> 
+				AND ACT_NAME = #{actName} 
+			</if>	
+			<if test="actType != null"> 
+				AND ACT_TYPE = #{actType} 
+			</if>	
+			<if test="menuId != null"> 
+				AND MENU_ID = #{menuId} 
+			</if>	
+			<if test="createTime != null"> 
+				AND CREATE_TIME = #{createTime} 
+			</if>	
+			<if test="timeStamp != null"> 
+				AND TIME_STAMP = #{timeStamp} 
+			</if>	
+			<if test="deleteMark != null"> 
+				AND DELETE_MARK = #{deleteMark} 
+			</if>	
+		</where>
+	</sql>
+	
+	<sql id="Set_Values">
+		<set >
+			<if test="id != null"> 
+				ID = #{id}, 
+			</if>	
+			<if test="actCode != null"> 
+				ACT_CODE = #{actCode}, 
+			</if>	
+			<if test="actName != null"> 
+				ACT_NAME = #{actName}, 
+			</if>	
+			<if test="actType != null"> 
+				ACT_TYPE = #{actType}, 
+			</if>	
+			<if test="menuId != null"> 
+				MENU_ID = #{menuId}, 
+			</if>	
+			<if test="createTime != null"> 
+				CREATE_TIME = #{createTime}, 
+			</if>	
+			<if test="timeStamp != null"> 
+				TIME_STAMP = #{timeStamp}, 
+			</if>	
+			<if test="deleteMark != null"> 
+				DELETE_MARK = #{deleteMark}, 
+			</if>	
+		</set>
+	</sql>
+	
+	<insert id="insert" parameterType="com.wm.mapper.entity.SysAction" >
+			<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">select uuid()</selectKey>
+			INSERT INTO SYS_ACTION
+			  (ID,ACT_CODE,ACT_NAME,ACT_TYPE,MENU_ID,CREATE_TIME,TIME_STAMP,DELETE_MARK)
+			VALUES 
+			  (#{id},#{actCode},#{actName},#{actType},#{menuId},#{createTime},#{timeStamp},#{deleteMark})
+	</insert>
+	
+	<delete id="deleteTrueByKey" parameterType="java.lang.String" >
+		<![CDATA[
+			DELETE FROM SYS_ACTION
+			WHERE ID = #{id}
+		]]>
+	</delete>
+	
+	<update id="deleteFalseByKey" parameterType="java.lang.String">
+		<![CDATA[
+			UPDATE SYS_ACTION SET DELETE_MARK = 1
+			WHERE ID = #{id}
+		]]>
+	</update>
+	
+	<update id="update" parameterType="com.wm.mapper.entity.SysAction" >
+		UPDATE SYS_ACTION
+		<include refid="Set_Values" />
+		WHERE ID = #{id}
+	</update>
+
+	<select id="queryByKey" parameterType="java.lang.String" resultMap="sysAction">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM SYS_ACTION
+ 		WHERE ID = #{id}
+	</select>
+	
+	<select id="queryByCondition" parameterType="com.wm.mapper.entity.SysAction" resultMap="sysAction">
+		SELECT 
+		<include refid="Table_Fields" />
+		FROM SYS_ACTION 
+		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="queryByPage" parameterType="java.util.Map" resultMap="sysAction">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM SYS_ACTION
+ 		<include refid="Where_Conditions" />
+ 		ORDER BY TIME_STAMP DESC
+	</select>
+	
+	<select id="queryCount" parameterType="com.wm.mapper.entity.SysAction" resultType="java.lang.Long">
+		SELECT COUNT(ID)
+ 		FROM SYS_ACTION
+ 		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="queryLoginAct" parameterType="java.lang.String" resultMap="sysAction">
+ 		SELECT
+			sac.id,
+			sac.act_name,
+			sac.menu_id
+		FROM
+			sys_action sac
+		LEFT JOIN sys_role_action sra ON sra.action_id = sac.id
+		LEFT JOIN sys_role r ON r.id = sra.role_id
+		LEFT JOIN sys_user_role ur ON ur.role_id = r.id
+		WHERE
+			ur.user_id =#{userId} 
+	</select>
+</mapper>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wm.mapper.SysMenuMapper">
+
+	<resultMap type="com.wm.mapper.entity.SysMenu" id="sysMenu">
+		<id property="id" column="ID" />
+		<result property="menuCode" column="MENU_CODE" />
+		<result property="menuName" column="MENU_NAME" />
+		<result property="menuIcon" column="MENU_ICON" />
+		<result property="menuUrl" column="MENU_URL" />
+		<result property="menuSort" column="MENU_SORT" />
+		<result property="menuType" column="MENU_TYPE" />
+		<result property="menuParent" column="MENU_PARENT" />
+		<result property="isAvailable" column="IS_AVAILABLE" />
+		<result property="nodeType" column="NODE_TYPE" />
+		<result property="timeStamp" column="TIME_STAMP" />
+		<result property="deleteMark" column="DELETE_MARK" />
+	</resultMap>
+
+
+	<sql id="Table_Fields">
+		ID,MENU_CODE,MENU_NAME,MENU_ICON,MENU_URL,MENU_SORT,MENU_TYPE,MENU_PARENT,IS_AVAILABLE,NODE_TYPE,TIME_STAMP,DELETE_MARK
+	</sql>
+
+    <sql id="Where_Conditions">
+		<where>
+			1=1
+			<if test="id != null" >
+				and ID = #{id}
+			</if>
+			<if test="menuCode != null" >
+				and MENU_CODE = #{menuCode}
+			</if>
+			<if test="menuName != null" >
+				and MENU_NAME = #{menuName}
+			</if>
+			<if test="menuIcon != null" >
+				and MENU_ICON = #{menuIcon}
+			</if>
+			<if test="menuUrl != null" >
+				and MENU_URL = #{menuUrl}
+			</if>
+			<if test="menuSort != null" >
+				and MENU_SORT = #{menuSort}
+			</if>
+			<if test="menuType != null" >
+				and MENU_TYPE = #{menuType}
+			</if>
+			<if test="menuParent != null" >
+				and MENU_PARENT = #{menuParent}
+			</if>
+			<if test="isAvailable != null" >
+				and IS_AVAILABLE = #{isAvailable}
+			</if>
+			<if test="nodeType != null" >
+				and NODE_TYPE = #{nodeType}
+			</if>
+			<if test="timeStamp != null" >
+				and TIME_STAMP = #{timeStamp}
+			</if>
+			<if test="deleteMark != null" >
+				and DELETE_MARK = #{deleteMark}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="Set_Values">
+		<set >
+			<if test="menuCode != null" >
+				MENU_CODE = #{menuCode},
+			</if>
+			<if test="menuName != null" >
+				MENU_NAME = #{menuName},
+			</if>
+			<if test="menuIcon != null" >
+				MENU_ICON = #{menuIcon},
+			</if>
+			<if test="menuUrl != null" >
+				MENU_URL = #{menuUrl},
+			</if>
+			<if test="menuSort != null" >
+				MENU_SORT = #{menuSort},
+			</if>
+			<if test="menuType != null" >
+				MENU_TYPE = #{menuType},
+			</if>
+			<if test="menuParent != null" >
+				MENU_PARENT = #{menuParent},
+			</if>
+			<if test="isAvailable != null" >
+				IS_AVAILABLE = #{isAvailable},
+			</if>
+			<if test="nodeType != null" >
+				NODE_TYPE = #{nodeType},
+			</if>
+			<if test="timeStamp != null" >
+				TIME_STAMP = #{timeStamp},
+			</if>
+			<if test="deleteMark != null" >
+				DELETE_MARK = #{deleteMark}
+			</if>
+		</set>
+	</sql>
+	
+	<insert id="insert" parameterType="com.wm.mapper.entity.SysMenu" >
+		    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">select uuid()</selectKey>
+			insert into sys_menu
+			  (ID,MENU_CODE,MENU_NAME,MENU_ICON,MENU_URL,MENU_SORT,MENU_TYPE,MENU_PARENT,IS_AVAILABLE,NODE_TYPE,TIME_STAMP,DELETE_MARK)
+			values
+			  (#{id},#{menuCode}, #{menuName}, #{menuIcon}, #{menuUrl},#{menuSort},#{menuType},#{menuParent},#{isAvailable},#{nodeType},#{timeStamp},#{deleteMark})
+	</insert>
+	
+	<delete id="deleteTrueByKey" parameterType="java.lang.String" >
+		<![CDATA[
+			delete from sys_menu
+			where id = #{id}
+		]]>
+	</delete>
+	
+	<update id="deleteFalseByKey" parameterType="java.lang.String">
+		<![CDATA[
+			update sys_menu set DELETE_MARK = 1
+			where id = #{id}
+		]]>
+	</update>
+	
+	<update id="update" parameterType="com.wm.mapper.entity.SysMenu" >
+		update sys_menu
+		<include refid="Set_Values" />
+		where ID = #{id}
+	</update>
+
+	<select id="queryByKey" parameterType="java.lang.String" resultMap="sysMenu">
+		select
+		<include refid="Table_Fields" />
+ 		from sys_menu 
+ 		where ID = #{id}
+	</select>
+	
+	<select id="queryByCondition" parameterType="com.wm.mapper.entity.SysMenu" resultMap="sysMenu">
+		select 
+		<include refid="Table_Fields" />
+		from sys_menu
+		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="queryByPage" parameterType="com.wm.mapper.entity.SysMenu" resultMap="sysMenu">
+		select
+		<include refid="Table_Fields" />
+ 		from sys_menu
+	</select>
+	
+	<select id="queryCount" parameterType="com.wm.mapper.entity.SysMenu" resultType="java.lang.Long">
+		select COUNT(ID)
+ 		from sys_menu
+ 		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="queryMenuInfo" parameterType="java.lang.String" resultMap="sysMenu">
+		select
+		<include refid="Table_Fields" />
+ 		from sys_menu
+ 		where menu_code like #{condition}
+ 		order by menu_code 
+	</select>
+	
+<!-- 	<select id="queryMenuTree" parameterType="com.wm.mapper.entity.SysMenu" resultMap="sysMenu"> -->
+<!-- 		SELECT DISTINCT -->
+<!-- 			m.ID,MENU_CODE,MENU_NAME,MENU_ICON,MENU_URL,MENU_SORT,MENU_TYPE,MENU_PARENT,IS_AVAILABLE,NODE_TYPE,m.TIME_STAMP,m.DELETE_MARK -->
+<!-- 			<if test="roleId != null" > -->
+<!-- 				,( -->
+<!-- 				CASE -->
+<!-- 				WHEN group_concat(DISTINCT r.id) LIKE concat('%',#{roleId},'%') -->
+<!-- 				THEN -->
+<!-- 					1 -->
+<!-- 				ELSE -->
+<!-- 					0 -->
+<!-- 				END -->
+<!-- 			) AS auttyMark -->
+<!-- 			</if> -->
+<!-- 		FROM -->
+<!-- 			sys_menu m -->
+<!-- 		LEFT JOIN sys_role_menu rm ON rm.menu_id = m.id -->
+<!-- 		LEFT JOIN sys_role r ON r.id = rm.role_id -->
+<!-- 		LEFT JOIN sys_user_role ur ON ur.role_id = r.id -->
+<!-- 		LEFT JOIN sys_user u ON u.id = ur.user_id -->
+<!-- 		WHERE -->
+<!-- 			1 = 1 -->
+<!-- 		AND m.menu_parent = #{id} -->
+<!-- 		<if test="userId != null" > -->
+<!-- 		AND u.id =  #{userId} -->
+<!-- 		</if> -->
+<!-- 		GROUP BY m.id -->
+<!-- 		ORDER BY m.menu_sort -->
+<!-- 	</select> -->
+	
+	<select id="queryMenuTree" parameterType="com.wm.mapper.entity.SysMenu" resultMap="sysMenu">
+		
+		SELECT DISTINCT t.*
+			  <if test="roleId != null" >
+				,(
+				CASE
+				WHEN group_concat(DISTINCT srm.role_id) LIKE concat('%',#{roleId},'%')
+				THEN
+					1
+				ELSE
+					0
+				END
+			) AS auttyMark
+			</if>
+		FROM (
+			SELECT DISTINCT
+				m.ID,MENU_CODE,MENU_NAME,MENU_ICON,MENU_URL,MENU_SORT,MENU_TYPE,MENU_PARENT,IS_AVAILABLE,NODE_TYPE,m.TIME_STAMP,m.DELETE_MARK
+			FROM
+				sys_menu m
+			LEFT JOIN sys_role_menu rm ON rm.menu_id = m.id
+			LEFT JOIN sys_role r ON r.id = rm.role_id
+			LEFT JOIN sys_user_role ur ON ur.role_id = r.id
+			LEFT JOIN sys_user u ON u.id = ur.user_id
+			WHERE
+				1 = 1
+			AND m.menu_parent = #{id}
+			<if test="userId != null" >
+			AND u.id =  #{userId}
+			</if>
+			GROUP BY m.id
+			ORDER BY m.menu_sort
+		) t
+		LEFT JOIN sys_role_menu srm ON srm.menu_id = t.id
+		GROUP BY t.id
+		ORDER BY t.menu_sort
+	</select>
+</mapper>

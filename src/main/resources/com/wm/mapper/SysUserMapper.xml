@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wm.mapper.SysUserMapper">
+
+	<resultMap type="com.wm.mapper.entity.SysUser" id="sysUser">
+		<result property="id" column="ID" />	
+		<result property="uAccount" column="U_ACCOUNT" />	
+		<result property="uPwd" column="U_PWD" />	
+		<result property="uName" column="U_NAME" />	
+		<result property="uPhoto" column="U_PHOTO" />	
+		<result property="uBirthday" column="U_BIRTHDAY" />	
+		<result property="uEmail" column="U_EMAIL" />	
+		<result property="uTel" column="U_TEL" />	
+		<result property="uType" column="U_TYPE" />	
+		<result property="uStatus" column="U_STATUS" />	
+		<result property="remarks" column="REMARKS" />	
+		<result property="createTime" column="CREATE_TIME" />	
+		<result property="timeStamp" column="TIME_STAMP" />	
+		<result property="deleteMark" column="DELETE_MARK" />	
+		<result property="spare" column="SPARE" />	
+	</resultMap>
+
+
+	<sql id="Table_Fields">
+		 ID,U_ACCOUNT,U_PWD,U_NAME,U_PHOTO,U_BIRTHDAY,U_EMAIL,U_TEL,U_TYPE,U_STATUS,REMARKS,CREATE_TIME,TIME_STAMP,DELETE_MARK,SPARE
+	</sql>
+	
+	<sql id="Table_Fields_Alias">
+		 u.ID,u.U_ACCOUNT,u.U_PWD,u.U_NAME,u.U_PHOTO,u.U_BIRTHDAY,u.U_EMAIL,u.U_TEL,u.U_TYPE,u.U_STATUS,u.REMARKS,u.CREATE_TIME,u.TIME_STAMP,u.DELETE_MARK,u.SPARE
+	</sql>
+
+    <sql id="Where_Conditions">
+		<where>
+			1=1
+			<if test="id != null"> 
+				AND ID = #{id} 
+			</if>	
+			<if test="uAccount != null"> 
+				AND U_ACCOUNT = #{uAccount} 
+			</if>	
+			<if test="uPwd != null"> 
+				AND U_PWD = #{uPwd} 
+			</if>	
+			<if test="uName != null"> 
+				AND U_NAME = #{uName} 
+			</if>	
+			<if test="uPhoto != null"> 
+				AND U_PHOTO = #{uPhoto} 
+			</if>	
+			<if test="uBirthday != null"> 
+				AND U_BIRTHDAY = #{uBirthday} 
+			</if>	
+			<if test="uEmail != null"> 
+				AND U_EMAIL = #{uEmail} 
+			</if>	
+			<if test="uTel != null"> 
+				AND U_TEL = #{uTel} 
+			</if>	
+			<if test="uType != null"> 
+				AND U_TYPE = #{uType} 
+			</if>	
+			<if test="uStatus != null"> 
+				AND U_STATUS = #{uStatus} 
+			</if>	
+			<if test="remarks != null"> 
+				AND REMARKS = #{remarks} 
+			</if>	
+			<if test="createTime != null"> 
+				AND CREATE_TIME = #{createTime} 
+			</if>	
+			<if test="timeStamp != null"> 
+				AND TIME_STAMP = #{timeStamp} 
+			</if>	
+			<if test="deleteMark != null"> 
+				AND DELETE_MARK = #{deleteMark} 
+			</if>	
+			<if test="spare != null"> 
+				AND SPARE = #{spare} 
+			</if>	
+		</where>
+	</sql>
+	
+	<sql id="Set_Values">
+		<set >
+			<if test="id != null"> 
+				ID = #{id}, 
+			</if>	
+			<if test="uAccount != null"> 
+				U_ACCOUNT = #{uAccount}, 
+			</if>	
+			<if test="uPwd != null"> 
+				U_PWD = #{uPwd}, 
+			</if>	
+			<if test="uName != null"> 
+				U_NAME = #{uName}, 
+			</if>	
+			<if test="uPhoto != null"> 
+				U_PHOTO = #{uPhoto}, 
+			</if>	
+			<if test="uBirthday != null"> 
+				U_BIRTHDAY = #{uBirthday}, 
+			</if>	
+			<if test="uEmail != null"> 
+				U_EMAIL = #{uEmail}, 
+			</if>	
+			<if test="uTel != null"> 
+				U_TEL = #{uTel}, 
+			</if>	
+			<if test="uType != null"> 
+				U_TYPE = #{uType}, 
+			</if>	
+			<if test="uStatus != null"> 
+				U_STATUS = #{uStatus}, 
+			</if>	
+			<if test="remarks != null"> 
+				REMARKS = #{remarks}, 
+			</if>	
+			<if test="createTime != null"> 
+				CREATE_TIME = #{createTime}, 
+			</if>	
+			<if test="timeStamp != null"> 
+				TIME_STAMP = #{timeStamp}, 
+			</if>	
+			<if test="deleteMark != null"> 
+				DELETE_MARK = #{deleteMark}, 
+			</if>	
+			<if test="spare != null"> 
+				SPARE = #{spare}, 
+			</if>	
+		</set>
+	</sql>
+	
+	<insert id="insert" parameterType="com.wm.mapper.entity.SysUser" >
+			<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">select uuid()</selectKey>
+			INSERT INTO SYS_USER
+			  (ID,U_ACCOUNT,U_PWD,U_NAME,U_PHOTO,U_BIRTHDAY,U_EMAIL,U_TEL,U_TYPE,U_STATUS,REMARKS,CREATE_TIME,TIME_STAMP,DELETE_MARK,SPARE)
+			VALUES 
+			  (#{id},#{uAccount},#{uPwd},#{uName},#{uPhoto},#{uBirthday},#{uEmail},#{uTel},#{uType},#{uStatus},#{remarks},#{createTime},#{timeStamp},#{deleteMark},#{spare})
+	</insert>
+	
+	<delete id="deleteTrueByKey" parameterType="java.lang.String" >
+		<![CDATA[
+			DELETE FROM SYS_USER
+			WHERE ID = #{id}
+		]]>
+	</delete>
+	
+	<update id="deleteFalseByKey" parameterType="java.lang.String">
+		<![CDATA[
+			UPDATE SYS_USER SET DELETE_MARK = 1
+			WHERE ID = #{id}
+		]]>
+	</update>
+	
+	<update id="update" parameterType="com.wm.mapper.entity.SysUser" >
+		UPDATE SYS_USER
+		<include refid="Set_Values" />
+		WHERE ID = #{id}
+	</update>
+
+	<select id="queryByKey" parameterType="java.lang.String" resultMap="sysUser">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM SYS_USER
+ 		WHERE ID = #{id}
+	</select>
+	
+	<select id="queryByCondition" parameterType="com.wm.mapper.entity.SysUser" resultMap="sysUser">
+		SELECT 
+		<include refid="Table_Fields" />
+		FROM SYS_USER 
+		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="queryByPage" parameterType="java.util.Map" resultMap="sysUser">
+		SELECT * FROM (
+			SELECT
+			<include refid="Table_Fields_Alias" />
+			,min(r.role_level) as roleLevel
+			,group_concat(DISTINCT r.role_name) AS roleName
+	 		FROM SYS_USER u
+	 		LEFT JOIN sys_user_role ur ON ur.user_id = u.id
+			LEFT JOIN sys_role r ON r.id = ur.role_id
+	 		<include refid="Where_Conditions" />
+	 		<if test="roleName != null"> 
+				AND	roleName  LIKE concat('%',#{roleName},'%'), 
+			</if>
+	 		GROUP BY u.id
+	 		ORDER BY u.create_time DESC
+ 		) t  
+ 		WHERE   roleLevel <![CDATA[ > ]]> #{roleLevel} OR roleLevel IS NULL
+	</select>
+	
+	<select id="queryCount" parameterType="com.wm.mapper.entity.SysUser" resultType="java.lang.Long">
+		SELECT COUNT(ID)
+ 		FROM SYS_USER
+ 		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="getAuthList" parameterType="java.lang.String"
+		resultType="java.util.Map">
+		<![CDATA[
+		SELECT DISTINCT
+			r.role_unique AS roleUnique,
+			r.role_level AS roleLevel,
+			r.role_name AS roleName
+		FROM
+			sys_role r
+		LEFT JOIN sys_user_role ur ON ur.role_id = r.id
+		LEFT JOIN sys_user u ON u.id = ur.user_id 
+		WHERE u.u_account = #{uAccount} 
+		ORDER BY r.role_level ASC
+		]]>
+	</select>
+</mapper>

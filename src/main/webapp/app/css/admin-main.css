@@ -1,0 +1,237 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+	-webkit-height: 100%;
+}
+
+body {
+	background: #fafafa;
+}
+
+#header, #footer {
+	/*background-color: #333;*/
+	color: #fff;
+}
+
+.header-navbar {
+	top: 0;
+	height: 70px;
+	width: 100%;
+}
+
+.navbar {
+	border-radius: 0px;
+}
+
+#footer {
+	width: 220px;
+	height: 150px;
+	text-align: center;
+	position: fixed;
+	float: left;
+	top: calc(100% - 150px);
+	padding: 10px;
+}
+
+#footer a {
+	background-color: rgba(0, 0, 0, 0);
+	color: #fff;
+}
+
+#footer a:hover {
+	background-color: rgba(0, 0, 0, 0);
+	color: #fff;
+}
+
+.sidebar-brand {
+	/*font-family: verdana;*/
+	text-align: center;
+	padding: 15px 0 10px 0;
+	color: #eee;
+	font-weight: 800;
+	font-size: 24px;
+	/*text-shadow: 0px 1px 1px #f4f4f4, 0px -1px 1px #f0f0f0;*/
+}
+
+.sidebar-terms {
+	list-style: none;
+	width: 100%;
+	height: 30px;
+}
+
+.sidebar-terms li {
+	float: left;
+	width: 40px;
+}
+
+#content {
+	height: 90.6%;
+	height: calc(100% - 70px);
+	-webkit-height: calc(100% - 70px);
+	-moz-height: calc(100% - 70px);
+	/*background-color: #393939;*/
+}
+
+#headerlogo {
+	width: 220px;
+	height: 68px;
+	position: absolute;
+	background-repeat: no-repeat;
+	padding: 20px 10px;
+	font-size: x-large;
+	font-weight: bold;
+}
+
+#headerlogo:hover {
+	background-position: left -58px;
+}
+
+.leftcontent {
+	float: left;
+	width: 220px;
+	height: 100%;
+	-webkit-height: 100%;
+	-moz-height: 100%;
+	overflow: auto;
+}
+
+.menunav {
+	height: calc(100% - 150px);
+	overflow-y: scroll;
+}
+
+.maincontent {
+	margin-left: 220px;
+	width: calc(100% - 220px);
+	-webkit-width: calc(100% - 220px);
+	-moz-width: calc(100% - 220px);
+	background: #eee;
+	padding: 5px 15px 10px 10px;
+	height: 100%;
+}
+
+#main {
+	padding: 20px 40px;
+	background-color: #fff;
+	height: 92%;
+	height: calc(100% - 70px);
+	-webkit-height: calc(100% - 70px);
+	-moz-height: calc(100% - 70px);
+	max-width: 100%;
+	-moz-box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
+	-webkit-box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
+	box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.1);
+	overflow: auto;
+}
+
+.navbar-toolmenu>li>a {
+	color: #fff !important;
+	background: rgba(0, 0, 0, 0);
+}
+
+.navbar-toolmenu>li>a:hover {
+	color: #222 !important;
+	background: #eee;
+}
+
+.navbar-toolmenu .open>a, .navbar-toolmenu .open>a:hover,
+	.navbar-toolmenu .open>a:focus {
+	color: #222 !important;
+	background: #eee;
+}
+
+/*.nav-toolmenu > li.active > a, .nav-black > li.active > a:hover, .nav-black > li.active > a:focus {
+    background: #d84c31;
+    color: #fff;
+}*/
+.info-box {
+	min-height: 140px;
+	margin-bottom: 30px;
+	padding: 20px;
+	color: white;
+	font-size: 15px;
+	-webkit-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px
+		1px -1px rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px
+		-1px rgba(0, 0, 0, 0.1);
+	box-shadow: inset 0 0 1px 1px rgba(255, 255, 255, 0.35), 0 3px 1px -1px
+		rgba(0, 0, 0, 0.1);
+}
+
+.info-box i {
+	display: block;
+	height: 100px;
+	font-size: 60px;
+	line-height: 100px;
+	width: 100px;
+	float: left;
+	text-align: center;
+	margin-right: 20px;
+	padding-right: 20px;
+	color: rgba(255, 255, 255, 0.75);
+}
+
+.info-box .count {
+	margin-top: -10px;
+	font-size: 34px;
+	font-weight: 700;
+}
+
+.info-box .title {
+	font-size: 15px;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+/* validate error info */
+.validate-info {
+	position: absolute;
+	float: right;
+	right: 15px;
+	top: 10px;
+}
+
+@media ( max-width : 768px) {
+	.header-navbar {
+		height: 40px !important;
+	}
+	.leftcontent {
+		display: none;
+		position: absolute;
+		z-index: 1;
+	}
+	.maincontent {
+		margin-left: 0px;
+		width: 100%;
+		height: 100%;
+	}
+	#content {
+		height: calc(100% - 40px);
+	}
+	#headerlogo {
+		padding: 10px;
+	}
+}
+
+@media ( min-width : 768px) {
+	.leftcontent {
+		display: block !important;
+	}
+}
+
+.code-div {
+	
+}
+
+.database-table-div {
+	overflow: auto;
+/* 	float: left; */
+	display: inline-block;
+}
+.btn{
+	    border-radius: 2px;
+}

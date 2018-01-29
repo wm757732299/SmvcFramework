@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../../common/head_resources.html">
+<link rel="stylesheet" href="${basePath}/app/plugin/ztree/css/metroStyle/metroStyle.css" type="text/css">
+<!-- <link rel="stylesheet" href="${basePath}/app/plugin/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css"> -->
+<style type="text/css">
+ #actionBtn {
+	overflow: hidden; 
+	height: 91%;
+ } 
+.col-md {
+	float: left;
+	margin: 3px;
+}
+.actionBtnList{
+height: 90%; overflow: auto;
+}
+.zIndex {
+	z-index: 999999;
+}
+
+.form-input {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.panel-right {
+	float: right;
+	width: 19%;
+	height: 100%;
+	margin-top: 0px;
+	overflow: hidden;
+}
+
+.panel-left {
+	float: left;
+	width: 80%;
+	height: 100%;
+	margin-left: 0px;
+	overflow: hidden;
+}
+.hsz-img{
+width: 50%;
+}
+</style>
+</head>
+<body>
+
+	<div class="btn-toolbar btn-overwrite">
+		<div class="btn-group">
+			<button id='adduser' class="btn btn-primary" data-toggle="collapse" data-target="#add_action_container">
+				<i class="icon icon-expand-alt"></i>新增
+			</button>
+		</div>
+		<form id="searchForm">
+			<div class="input-group">
+				<input type="text" id="sear_uAccount" name="uAccount" class="form-control" value="${(param.uAccount)!''}" placeholder="账号">
+			</div>
+		</form>
+		<div class="btn-group">
+			<button class="btn btn-primary" onclick="UserList.reLoadData(1)">
+				<i class="icon icon-search"></i>搜索
+			</button>
+		</div>
+
+	</div>
+
+
+	<div id="actionBtn">
+			<div class="panel panel-left">
+				<div class="panel-heading">操作行为</div>
+					<!-- 				新增                      -->
+					<div class=" collapse" id="add_action_container">
+						<div class="alert-success with-padding">
+							<div class="btn-toolbar btn-overwrite">
+								<form id="addForm">
+									<div class="input-group form-input">
+										<input type="text" id="actName" name="actName" class="form-control input-sm" placeholder="名称(不能输入特殊字符)">
+									</div>
+									<div class="input-group form-input">
+									<div class="dropdown" id="add_dropdown">
+									 	  <input type="text" id="menuId" name="menuId" class="form-control hidden"  data-toggle="dropdown"  readonly>
+										  <input type="text" id="ubiety" name="ubiety" class="form-control input-sm"  data-toggle="dropdown" placeholder="选择" readonly>
+									</div>
+
+									</div>
+								</form>
+								<div class="pull-right btn-group">
+									<button class="btn btn-mini btn-warning" data-toggle="collapse" data-target="#add_action_container">
+										<i class="icon icon-search"></i>取消
+									</button>
+								</div>
+								<div class="pull-right btn-group">
+									<button class="btn btn-mini btn-success" onclick="ActionList.saveData()">
+										<i class="icon icon-search"></i>保存
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 				回收站内容                     -->
+					<div class="collapse" id="hsz_container">
+						<div class="alert-warning with-padding">
+							<div class="btn-toolbar btn-overwrite">
+								<span class="label label-danger">回收站</span>
+								<div class="pull-right btn-group">
+									<button class="btn btn-warning" data-toggle="collapse" data-target="#hsz_container">
+										<i class="icon icon-search"></i>关闭
+									</button>
+								</div>
+								<div class="pull-right btn-group">
+									<button class="btn btn-success" onclick="UserList.reLoadData(1)">
+										<i class="icon icon-search"></i>清空
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="panel-body actionBtnList">
+<!-- 					<div class="actionBtnList" style=""></div> -->
+				</div>
+			</div>
+
+		<div class=panel-right>
+			<div class="panel">
+				<div class="panel-heading">操作行为</div>
+				<div class="panel-body" style="height: 150px; text-align: center; line-height: 40px; width: 100%;">
+					<div class="hsz-img">
+						<img class="droppable-target" alt="" src="${basePath}/app/images/hsz.png" data-toggle="collapse" data-target="#hsz_container">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<script src="${basePath}/app/plugin/ztree/js/jquery.ztree.all.js"></script>
+<!-- 	<script src="${basePath}/app/plugin/zui1.7.0/dist/lib/selectable/zui.selectable.min.js"></script> -->
+	<script src="${basePath}/app/main/admin/sys/action/action_list.js"></script>
+</body>
+</html>

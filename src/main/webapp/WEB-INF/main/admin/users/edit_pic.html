@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../common/head_resources.html">
+<link href="${basePath}/app/plugin/zui1.7.0/dist/lib/imgcutter/zui.imgcutter.min.css" rel="stylesheet">
+<script src="${basePath}/app/plugin/zui1.7.0/dist/lib/imgcutter/zui.imgcutter.js"></script>
+</head>
+<body>
+	<div class="img-cutter" id="imgCutter" style="height: 450px; position: absolute; overflow: auto">
+		<div id="canvas" class="canvas">
+			<img id="preview" src="${basePath}/app/images/23.jpg" style="width: 300px; height: 301px;">
+		</div>
+		<div class="actions">
+			<button type="button" class="btn btn-primary img-cutter-submit">确认</button>
+			<button type="button" class="btn btn-primary">确认</button>
+			<input type="file" name="file" onchange="imgPreview(this)" />
+		</div>
+	</div>
+	<script src="${basePath}/app/main/admin/users/personal_panel.js"></script>
+</body>
+</html>

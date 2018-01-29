@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="../app/plugin/zui1.7.0/dist/css/zui.css" rel="stylesheet">
+<link href="../app/plugin/videojs/video-js.css" rel="stylesheet">
+
+<link href="../app/plugin/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+
+<link href="../app/css/website-main.css" rel="stylesheet">
+</head>
+<body>
+	<header class="header">
+		<hr>
+		<nav class="navbar" role="navigation">
+			<div class="container-fluid">
+				<!-- 导航头部 -->
+				<div class="navbar-header">
+					<!-- 品牌名称或logo -->
+					<a class="navbar-brand" href="#">WMTOUCH</a>
+				</div>
+				<!-- 导航项目 -->
+				<div class="collapse navbar-collapse navbar-collapse-example">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="#">首页</a></li>
+						<li><a href="#">电视直播</a></li>
+						<li><a href="#">快看</a></li>
+						<li><a href="#">最新动态</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">探索 <b class="caret"></b></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">探索世界</a></li>
+								<li><a href="#">探索宇宙</a></li>
+							</ul></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="#">帮助</a></li>
+						<li class="dropdown active"><a href="#" class="dropdown-toggle" data-toggle="dropdown">关于我<b class="caret"></b></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#">个人简介</a></li>
+								<li><a href="#">作品展示</a></li>
+								<li class="divider"></li>
+								<li><a href="#">留言</a></li>
+							</ul></li>
+						<li><a href="wm">管理端</a></li>
+					</ul>
+
+				</div>
+			</div>
+		</nav>
+		<hr>
+	</header>
+
+
+	<div class="play-main">
+
+
+		<div id="player" style="width: 1230px; height: 720px;">
+			<video id="example_video_1" class="video-js vjs-default-skin" controls preload="auto" width="1230" height="720"
+				poster="http://video-js.zencoder.com/oceans-clip.png" data-setup='{"example_option":true}'>
+				<source src='rtmp://localhost/oflaDemo/BladeRunner2049.flv' type='rtmp/flv' />
+				<source src="mov_bbb.mp4" type='video/mp4' />
+				<source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' />
+				<source src="http://video-js.zencoder.com/oceans-clip.ogv" type='video/ogg' />
+				<p class="vjs-no-js">
+					<a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+				</p>
+			</video>
+		</div>
+
+	</div>
+
+	<div class="video-info">
+
+		<p>
+			<span class="jj"> <a href="#collapse_01" data-toggle="collapse" class="jj btn btn-link">简介：</a> 作者: 时间： 评论 浏览量
+			</span> <span class="szc btn btn-link"> <i class="icon-heart-empty  text-danger">踩</i>
+			</span> <span class="szc btn btn-link"> <i class="icon-heart-empty  text-danger"> 赞</i>
+			</span> <span class="szc btn btn-link"> <i class="icon-heart-empty  text-danger">收藏</i>
+			</span>
+		</p>
+		<div class="collapse in " id="collapse_01">
+
+			<p>
+				那冰凌是坚硬的，是冷峻的，那种冷并不突然，而是在你的手中缓缓的释放出来，在你最初的新奇之后慢慢的浸入你的肌肤，麻木着你的神经，些微有些痛，却又有些刺激，让你既胆颤又有些不舍。在左右手交替着把玩，对着阳光细究着他的透明之后，才有些依依不舍的将他重新放回雪的怀抱。似乎，那是一个你初识的新朋友，到了时候要回归各自家的港湾。
+
+			</p>
+
+		</div>
+
+
+
+
+
+
+
+
+
+
+		<p>
+			<span class="jj"> <a href="#collapse_02" data-toggle="collapse" class="jj btn btn-link">评论：</a>
+			</span>
+		</p>
+		<div class="collapse in " id="collapse_02">
+<div class="comment">
+  <a href="###" class="avatar">
+    <i class="icon-camera-retro icon-2x"></i>
+  </a>
+  <div class="content">
+    <div class="pull-right text-muted">3 个小时前</div>
+    <div><a href="###"><strong>张士超</strong></a></div>
+    <div class="text">今天玩的真开心！~~~~~~</div>
+    <div class="actions">
+      <a href="##">回复</a>
+    </div>
+  </div>
+  <div class="comments-list">
+    <div class="comment">
+      <a href="###" class="avatar">
+        <i class="icon-user icon-2x"></i>
+      </a>
+      <div class="content">
+        <div class="pull-right text-muted">2 个小时前</div>
+        <div><a href="###"><strong>Catouse</strong></a> <span class="text-muted">回复</span> <a href="###">张士超</a></div>
+        <div class="text">你到底把我家钥匙放哪里了...</div>
+        <div class="actions">
+          <a href="##">回复</a>
+          <a href="##">编辑</a>
+          <a href="##">删除</a>
+        </div>
+      </div>
+      <div class="comments-list">
+        <div class="comment">
+          <a href="###" class="avatar">
+            <i class="icon-yinyang icon-2x"></i>
+          </a>
+          <div class="content">
+            <div class="pull-right text-muted">1 个小时前</div>
+            <div><a href="###"><strong>门口大爷</strong></a> <span class="text-muted">回复</span> <a href="###">Catouse</a></div>
+            <div class="text">不在我这儿...</div>
+            <div class="actions">
+              <a href="##">回复</a>
+            </div>
+          </div>
+        </div>
+        <div class="comment">
+          <a href="###" class="avatar">
+            <i class="icon-cube-alt icon-2x"></i>
+          </a>
+          <div class="content">
+            <div class="pull-right text-muted">1 个小时前</div>
+            <div><a href="###"><strong>队长</strong></a> <span class="text-muted">回复</span> <a href="###">Catouse</a></div>
+            <div class="text">也不在我这儿...</div>
+            <div class="actions">
+              <a href="##">回复</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment">
+      <a href="###" class="avatar">
+        <i class="icon-heart-empty icon-2x"></i>
+      </a>
+      <div class="content">
+        <div class="pull-right text-muted">30 分钟前</div>
+        <div><a href="###"><strong>华师大第一美女</strong></a> <span class="text-muted">回复</span> <a href="###">张士超</a></div>
+        <div class="text">很开心~~~</div>
+        <div class="actions">
+          <a href="##">回复</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+		<div class="section">
+			<h3 id="focush2"></h3>
+			<h3>发表评论</h3>
+			<script type="text/plain" id="myEditor" style="width: 100%; height: 240px;">
+    			<p>这里我可以写一些输入提示</p>
+			</script>
+			<div class="section">
+				<button class="btn btn-primary szc" type="button">发表评论</button>
+			</div>
+		</div>
+
+	</div>
+
+	<footer>
+		<hr>
+		<figure>
+			<img alt="" src="../app/images/wx2wm.png" title="不要扫！不要，扫！不，要扫！">
+		</figure>
+		<div class="alert alert-primary-inverse">
+			<h4>提示</h4>
+			<p>为了方便用户创建多种尺寸的卡片，并没有限定卡片的高度，但为保证卡片视图排列正常，需要确保每个卡片的高度一致。</p>
+			<p>为了方便用户创建多种尺寸的卡片，并没有限定卡片的高度，但为保证卡片视图排列正常，需要确保每个卡片的高度一致。</p>
+			<p>为了方便用户创建多种尺寸的卡片，并没有限定卡片的高度，但为保证卡片视图排列正常，需要确保每个卡片的高度一致。</p>
+			<p>为了方便用户创建多种尺寸的卡片，并没有限定卡片的高度，但为保证卡片视图排列正常，需要确保每个卡片的高度一致。</p>
+		</div>
+	</footer>
+
+
+	<script type="text/javascript" src="../app/plugin/jquery/jquery-1.11.3.min.js"></script>
+	<script src="../app/plugin/zui1.7.0/dist/js/zui.js"></script>
+	<script type="text/javascript" src="../app/plugin/videojs/video.js"></script>
+
+	<script type="text/javascript" charset="utf-8" src="../app/plugin/ueditor/umeditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="../app/plugin/ueditor/umeditor.min.js"></script>
+	<script type="text/javascript" src="../app/plugin/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+	<script type="text/javascript">
+		//实例化编辑器
+		var um = UM.getEditor('myEditor');
+		um.addListener('blur', function() {
+			$('#focush2').html('编辑器失去焦点了')
+		});
+		um.addListener('focus', function() {
+			$('#focush2').html('')
+		});
+	</script>
+</body>
+</html>

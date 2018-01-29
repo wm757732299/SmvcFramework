@@ -1,0 +1,11 @@
+##项目说明         http://localhost:8080/SmvcFramework/app/main/start.html 
+#/SmvcFramework/login/test.wmctl
+
+#1.
+开发版注释开头（[MyNotes_AloneRow_WMing]）单独占一行
+如 ：//[MyNotes_AloneRow_WMing]注释说明。。。
+  /*
+   *[MyNotes_AloneRow_WMing]注释说明。。。
+   *[MyNotes_AloneRow_WMing]注释说明。。。
+   */
+生产版可批量删除

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../common/head_resources.html">
+
+<link rel="stylesheet" href="${basePath}/app/plugin/highlight/styles/atelier-savanna-dark.css">
+<style type="text/css">
+.divv {
+	width: 80%;
+	height: 334px;
+	/* margin: 5px; */
+	float: right;
+	border: 1px rgba(56, 52, 52, 0.02) solid;
+}
+</style>
+
+</head>
+<body>
+
+
+	<div class="database-table-div">
+		<nav class="menu" data-ride="menu" style="width: 200px; height: 334px;">
+			<button class="btn btn-primary">
+				<i class="icon icon-edit"></i> CREATE
+			</button>
+			<button class="btn">
+				<i class="icon icon-cloud-upload"></i> UPLOAD
+			</button>
+			<ul id="databset_tables" class="nav nav-primary">
+
+			</ul>
+		</nav>
+	</div>
+	<div class="divv">
+		<table class="table table-bordered" id="tableColumns">
+			<tbody>
+				<tr class="ec-tools-bg">
+					<th width="150px">列名</th>
+					<th width="150px">类型</th>
+					<th width="150px">长度</th>
+					<th width="80px">是否主键</th>
+					<th>备注</th>
+					<th width="60px">操作</th>
+				</tr>
+			</tbody>
+			<tr>
+				<td><input type="text" value="id" class="form-control input-sm" name="columnInputList[0].name"></td>
+				<td><select class="form-control input-sm" name="columnInputList[0].dataType">
+						<option value="varchar">varchar</option>
+				</select></td>
+				<td><input type="text" value="18" class="form-control input-sm columnLength" name="columnInputList[0].length"></td>
+				<td><input type="checkbox" value="true" checked="" class="form-control input-sm primary" name="columnInputList[0].primaryKey"></td>
+				<td><input type="text" value="主键ID" class="form-control input-sm" name="columnInputList[0].remark"></td>
+				<td><input type="button" class="btn btn-sm btn-danger deleteColumn" value="删除"></td>
+			</tr>
+		</table>
+	</div>
+	<div> 
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-tab href="#mapperXml_content">MapperXml</a></li>
+		<li><a data-tab href="#mapperJava_content">MapperJava</a></li>
+		<li><a data-tab href="#serviceJava_content">ServiceJava</a></li>
+		<li><a data-tab href="#serviceImplJava_content">ServiceImplJava</a></li>
+		<li><a data-tab href="#controllerJava_content">ControllerJava</a></li>
+		<li><a data-tab href="#listJs_content">ListJs</a></li>
+		<li><a data-tab href="#entityJava_content">EntityJava</a></li>
+	</ul>
+	<div class="tab-content code-div">
+		<div class="tab-pane  fade active in" id="mapperXml_content">
+			<pre>
+<!-- 			<button class="btn btn-copy" data-codeid="MapperXml"><i class="icon icon-copy"></i></button> -->
+				<code id="MapperXml" class="xml">
+				</code>
+			</pre>
+		</div>
+		<div class="tab-pane fade" id="mapperJava_content">
+			<pre>
+<!-- 				<button class="btn btn-copy" data-codeid="MapperJava"><i class="icon icon-copy"></i></button> -->
+				<code id="MapperJava" class="java">
+				</code>
+			</pre>
+		</div>
+		<div class="tab-pane fade" id="serviceJava_content">
+			<pre>
+<!-- 				<button class="btn btn-copy" data-codeid="ServiceJava"><i class="icon icon-copy"></i></button> -->
+				<code id="ServiceJava" class="java">
+				</code>
+			</pre>
+		</div>
+		<div class="tab-pane fade" id="serviceImplJava_content">
+			<pre>
+<!-- 				<button class="btn btn-copy" data-codeid="ServiceImplJava"><i class="icon icon-copy"></i></button> -->
+				<code id="ServiceImplJava" class="java">
+				</code>
+			</pre>
+		</div>
+		<div class="tab-pane fade" id="controllerJava_content">
+			<pre>
+<!-- 				<button class="btn btn-copy" data-codeid="ControllerJava"><i class="icon icon-copy"></i></button> -->
+				<code id="ControllerJava" class="java">
+				</code>
+			</pre>
+		</div>
+		<div class="tab-pane fade" id="listJs_content">
+			<pre>
+<!-- 				<button class="btn btn-copy" data-codeid="ListJs"><i class="icon icon-copy"></i></button> -->
+				<code id="ListJs" class="javascript">
+				</code>
+			</pre>
+		</div>
+		<div class="tab-pane fade" id="entityJava_content">
+			<pre>
+<!-- 				<button class="btn btn-copy" data-codeid="EntityJava"><i class="icon icon-copy"></i></button> -->
+				<code id="EntityJava" class="javascript">
+				</code>
+			</pre>
+		</div>
+	</div>
+
+	<div id="changeStyleSelect"></div>
+</div>
+	<script src="${basePath}/app/plugin/highlight/highlight.pack.js"></script>
+	<script src="${basePath}/app/main/admin/tool/code_tool.js"></script>
+</body>
+</html>

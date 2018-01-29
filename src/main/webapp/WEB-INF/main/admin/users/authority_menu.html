@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<#include "../common/head_resources.html">
+
+<link rel="stylesheet" href="${basePath}/app/plugin/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<!-- <link rel="stylesheet" href="${basePath}/app/plugin/ztree/css/metroStyle/metroStyle.css" type="text/css"> -->
+
+<style type="text/css">
+html, body {
+	height: 99%;
+	-webkit-height: 100%;
+}
+
+.div_0 {
+	width: 99%;
+	height: 100px;
+	margin: 5px, 0, 5px, 5px;
+	background-color: #ffffff;
+	border: 1px rgba(56, 52, 52, 0.02) solid;
+}
+
+.divv_1_0 {
+	width: 23%;
+	height: 88%;
+	margin: 5px;
+	float: left;
+	border: 1px rgba(56, 52, 52, 0.02) solid;
+}
+
+.div_1_1 {
+	width: 75%;
+	height: 88%;
+	margin: 5px;
+	float: left;
+	border: 1px rgba(56, 52, 52, 0.02) solid;
+}
+
+#datatable-childNodeTable>.datatable-head {
+	display: none;
+}
+</style>
+</head>
+<body>
+
+	<input type="hidden" id="roleId" name="roleId" value="${data!''}" readonly="readonly" placeholder="角色id">
+
+	<div class="divv div_0">
+		<button class="btn btn-primary " type="button" onclick="AuthorityMenu.saveRoleMenu()">
+			<i class="icon icon-star"></i>保存权限
+		</button>
+		<button class="btn btn-warning " type="button" onclick="AuthorityMenu.reFresh()">
+			<i class="icon icon-star"></i>刷新导航树
+		</button>
+		<button class="btn btn-info " type="button" onclick="AuthorityMenu.expandAll(true)">
+			<i class="icon icon-star"></i>展开
+		</button>
+		<button class="btn btn-info " type="button" onclick="AuthorityMenu.expandAll(false)">
+			<i class="icon icon-star"></i>折叠
+		</button>
+		<div class="input-group" style="width: 20%">
+			<input type="text" id="searchNodes" class="form-control"> <span class="input-group-btn">
+				<button class="btn btn-success " type="button" onclick="AuthorityMenu.searchNodes()">
+					<i class="icon icon-star"></i>查找节点
+				</button>
+			</span>
+		</div>
+	</div>
+
+	<div id="tree_div" class="divv_1_0 panel panel-info">
+		<div class="panel-heading">菜单</div>
+		<div class="panel-body">
+			<ul id="show_tree" class="ztree">
+			</ul>
+		</div>
+	</div>
+	<div class="div_1_1 panel panel-info">
+		<div class="panel-heading">详情</div>
+		<div class="panel-body">
+			<table id="parentNodeTable" class="table  ">
+				<thead>
+					<tr>
+						<th>名称</th>
+						<th>图标</th>
+						<th>地址</th>
+						<th>是否可用</th>
+						<th>节点类型</th>
+					</tr>
+				</thead>
+			</table>
+
+			<table id="childNodeTable" class="table table-bordered">
+
+			</table>
+
+		</div>
+		<div class="panel-footer"></div>
+	</div>
+
+
+	<script src="${basePath}/app/plugin/myutils/data_model.js"></script>
+	<script src="${basePath}/app/plugin/myutils/dialog.js"></script>
+	<script src="${basePath}/app/plugin/ztree/js/jquery.ztree.all.js"></script>
+	<script src="${basePath}/app/main/admin/users/authority_menu.js"></script>
+	<script src="${basePath}/app/main/admin/menu/menu_add.js"></script>
+</body>
+</html>

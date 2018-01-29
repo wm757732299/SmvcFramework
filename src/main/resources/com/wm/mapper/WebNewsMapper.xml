@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wm.mapper.WebNewsMapper">
+
+	<resultMap type="com.wm.mapper.entity.WebNews" id="webNews">
+		<result property="id" column="ID" />	
+		<result property="title" column="TITLE" />	
+		<result property="summary" column="SUMMARY" />	
+		<result property="content" column="CONTENT" />	
+		<result property="author" column="AUTHOR" />	
+		<result property="status" column="STATUS" />	
+		<result property="createTime" column="CREATE_TIME" />	
+		<result property="timeStamp" column="TIME_STAMP" />	
+		<result property="deleteMark" column="DELETE_MARK" />	
+	</resultMap>
+
+
+	<sql id="Table_Fields">
+		 ID,TITLE,SUMMARY,CONTENT,AUTHOR,STATUS,CREATE_TIME,TIME_STAMP,DELETE_MARK
+	</sql>
+
+    <sql id="Where_Conditions">
+		<where>
+			1=1
+			<if test="id != null"> 
+				AND ID = #{id} 
+			</if>	
+			<if test="title != null"> 
+				AND TITLE = #{title} 
+			</if>	
+			<if test="summary != null"> 
+				AND SUMMARY = #{summary} 
+			</if>	
+			<if test="content != null"> 
+				AND CONTENT = #{content} 
+			</if>	
+			<if test="author != null"> 
+				AND AUTHOR = #{author} 
+			</if>	
+			<if test="status != null"> 
+				AND STATUS = #{status} 
+			</if>	
+			<if test="createTime != null"> 
+				AND CREATE_TIME = #{createTime} 
+			</if>	
+			<if test="timeStamp != null"> 
+				AND TIME_STAMP = #{timeStamp} 
+			</if>	
+			<if test="deleteMark != null"> 
+				AND DELETE_MARK = #{deleteMark} 
+			</if>	
+		</where>
+	</sql>
+	
+	<sql id="Set_Values">
+		<set >
+			<if test="id != null"> 
+				ID = #{id}, 
+			</if>	
+			<if test="title != null"> 
+				TITLE = #{title}, 
+			</if>	
+			<if test="summary != null"> 
+				SUMMARY = #{summary}, 
+			</if>	
+			<if test="content != null"> 
+				CONTENT = #{content}, 
+			</if>	
+			<if test="author != null"> 
+				AUTHOR = #{author}, 
+			</if>	
+			<if test="status != null"> 
+				STATUS = #{status}, 
+			</if>	
+			<if test="createTime != null"> 
+				CREATE_TIME = #{createTime}, 
+			</if>	
+			<if test="timeStamp != null"> 
+				TIME_STAMP = #{timeStamp}, 
+			</if>	
+			<if test="deleteMark != null"> 
+				DELETE_MARK = #{deleteMark}, 
+			</if>	
+		</set>
+	</sql>
+	
+	<insert id="insert" parameterType="com.wm.mapper.entity.WebNews" >
+			<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">select uuid()</selectKey>
+			INSERT INTO WEB_NEWS
+			  (ID,TITLE,SUMMARY,CONTENT,AUTHOR,STATUS,CREATE_TIME,TIME_STAMP,DELETE_MARK)
+			VALUES 
+			  (#{id},#{title},#{summary},#{content},#{author},#{status},#{createTime},#{timeStamp},#{deleteMark})
+	</insert>
+	
+	<delete id="deleteTrueByKey" parameterType="java.lang.String" >
+		<![CDATA[
+			DELETE FROM WEB_NEWS
+			WHERE ID = #{id}
+		]]>
+	</delete>
+	
+	<update id="deleteFalseByKey" parameterType="java.lang.String">
+		<![CDATA[
+			UPDATE WEB_NEWS SET DELETE_MARK = 1
+			WHERE ID = #{id}
+		]]>
+	</update>
+	
+	<update id="update" parameterType="com.wm.mapper.entity.WebNews" >
+		UPDATE WEB_NEWS
+		<include refid="Set_Values" />
+		WHERE ID = #{id}
+	</update>
+
+	<select id="queryByKey" parameterType="java.lang.String" resultMap="webNews">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM WEB_NEWS
+ 		WHERE ID = #{id}
+	</select>
+	
+	<select id="queryByCondition" parameterType="com.wm.mapper.entity.WebNews" resultMap="webNews">
+		SELECT 
+		<include refid="Table_Fields" />
+		FROM WEB_NEWS 
+		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="queryByPage" parameterType="java.util.Map" resultMap="webNews">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM WEB_NEWS
+ 		<include refid="Where_Conditions" />
+ 		ORDER BY TIME_STAMP DESC
+	</select>
+	
+	<select id="queryCount" parameterType="com.wm.mapper.entity.WebNews" resultType="java.lang.Long">
+		SELECT COUNT(ID)
+ 		FROM WEB_NEWS
+ 		<include refid="Where_Conditions" />
+	</select>
+</mapper>

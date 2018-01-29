@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wm.mapper.VideoMapper">
+
+	<resultMap type="com.wm.mapper.entity.Video" id="video">
+		<result property="id" column="ID" />	
+		<result property="vName" column="V_NAME" />	
+		<result property="vCover" column="V_COVER" />	
+		<result property="vBrief" column="V_BRIEF" />	
+		<result property="vUploader" column="V_UPLOADER" />	
+		<result property="vAuthor" column="V_AUTHOR" />	
+		<result property="vUrl" column="V_URL" />	
+		<result property="vType" column="V_TYPE" />	
+		<result property="vStatus" column="V_STATUS" />	
+		<result property="pageview" column="PAGEVIEW" />	
+		<result property="likeCount" column="LIKE_COUNT" />	
+		<result property="dislikeCount" column="DISLIKE_COUNT" />	
+		<result property="createTime" column="CREATE_TIME" />	
+		<result property="timeStamp" column="TIME_STAMP" />	
+		<result property="deleteMark" column="DELETE_MARK" />	
+	</resultMap>
+
+
+	<sql id="Table_Fields">
+		 ID,V_NAME,V_COVER,V_BRIEF,V_UPLOADER,V_AUTHOR,V_URL,V_TYPE,V_STATUS,PAGEVIEW,LIKE_COUNT,DISLIKE_COUNT,CREATE_TIME,TIME_STAMP,DELETE_MARK
+	</sql>
+	
+	<sql id="Table_Fields_Alias">
+		 v.ID,v.V_NAME,v.V_COVER,v.V_BRIEF,v.V_UPLOADER,v.V_AUTHOR,v.V_URL,v.V_TYPE,v.V_STATUS,v.PAGEVIEW,v.LIKE_COUNT,v.DISLIKE_COUNT,v.CREATE_TIME,v.TIME_STAMP,v.DELETE_MARK
+	</sql>
+	
+    <sql id="Where_Conditions">
+		<where>
+			1=1
+			<if test="id != null"> 
+				AND ID = #{id} 
+			</if>	
+			<if test="vName != null"> 
+				AND V_NAME = #{vName} 
+			</if>	
+			<if test="vCover != null"> 
+				AND V_COVER = #{vCover} 
+			</if>	
+			<if test="vBrief != null"> 
+				AND V_BRIEF = #{vBrief} 
+			</if>	
+			<if test="vUploader != null"> 
+				AND V_UPLOADER = #{vUploader} 
+			</if>	
+			<if test="vAuthor != null"> 
+				AND V_AUTHOR = #{vAuthor} 
+			</if>	
+			<if test="vUrl != null"> 
+				AND V_URL = #{vUrl} 
+			</if>	
+			<if test="vType != null"> 
+				AND V_TYPE = #{vType} 
+			</if>	
+			<if test="vStatus != null"> 
+				AND V_STATUS = #{vStatus} 
+			</if>	
+			<if test="pageview != null"> 
+				AND PAGEVIEW = #{pageview} 
+			</if>	
+			<if test="likeCount != null"> 
+				AND LIKE_COUNT = #{likeCount} 
+			</if>	
+			<if test="dislikeCount != null"> 
+				AND DISLIKE_COUNT = #{dislikeCount} 
+			</if>	
+			<if test="createTime != null"> 
+				AND CREATE_TIME = #{createTime} 
+			</if>	
+			<if test="timeStamp != null"> 
+				AND TIME_STAMP = #{timeStamp} 
+			</if>	
+			<if test="deleteMark != null"> 
+				AND DELETE_MARK = #{deleteMark} 
+			</if>	
+		</where>
+	</sql>
+	
+	<sql id="Set_Values">
+		<set >
+			<if test="id != null"> 
+				ID = #{id}, 
+			</if>	
+			<if test="vName != null"> 
+				V_NAME = #{vName}, 
+			</if>	
+			<if test="vCover != null"> 
+				V_COVER = #{vCover}, 
+			</if>	
+			<if test="vBrief != null"> 
+				V_BRIEF = #{vBrief}, 
+			</if>	
+			<if test="vUploader != null"> 
+				V_UPLOADER = #{vUploader}, 
+			</if>	
+			<if test="vAuthor != null"> 
+				V_AUTHOR = #{vAuthor}, 
+			</if>	
+			<if test="vUrl != null"> 
+				V_URL = #{vUrl}, 
+			</if>	
+			<if test="vType != null"> 
+				V_TYPE = #{vType}, 
+			</if>	
+			<if test="vStatus != null"> 
+				V_STATUS = #{vStatus}, 
+			</if>	
+			<if test="pageview != null"> 
+				PAGEVIEW = #{pageview}, 
+			</if>	
+			<if test="likeCount != null"> 
+				LIKE_COUNT = #{likeCount}, 
+			</if>	
+			<if test="dislikeCount != null"> 
+				DISLIKE_COUNT = #{dislikeCount}, 
+			</if>	
+			<if test="createTime != null"> 
+				CREATE_TIME = #{createTime}, 
+			</if>	
+			<if test="timeStamp != null"> 
+				TIME_STAMP = #{timeStamp}, 
+			</if>	
+			<if test="deleteMark != null"> 
+				DELETE_MARK = #{deleteMark}, 
+			</if>	
+		</set>
+	</sql>
+	
+	<insert id="insert" parameterType="com.wm.mapper.entity.Video" >
+			<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">select uuid()</selectKey>
+			INSERT INTO VIDEO
+			  (ID,V_NAME,V_COVER,V_BRIEF,V_UPLOADER,V_AUTHOR,V_URL,V_TYPE,V_STATUS,PAGEVIEW,LIKE_COUNT,DISLIKE_COUNT,CREATE_TIME,TIME_STAMP,DELETE_MARK)
+			VALUES 
+			  (#{id},#{vName},#{vCover},#{vBrief},#{vUploader},#{vAuthor},#{vUrl},#{vType},#{vStatus},#{pageview},#{likeCount},#{dislikeCount},#{createTime},#{timeStamp},#{deleteMark})
+	</insert>
+	
+	<delete id="deleteTrueByKey" parameterType="java.lang.String" >
+		<![CDATA[
+			DELETE FROM VIDEO
+			WHERE ID = #{id}
+		]]>
+	</delete>
+	
+	<update id="deleteFalseByKey" parameterType="java.lang.String">
+		<![CDATA[
+			UPDATE VIDEO SET DELETE_MARK = 1
+			WHERE ID = #{id}
+		]]>
+	</update>
+	
+	<update id="update" parameterType="com.wm.mapper.entity.Video" >
+		UPDATE VIDEO
+		<include refid="Set_Values" />
+		WHERE ID = #{id}
+	</update>
+
+	<select id="queryByKey" parameterType="java.lang.String" resultMap="video">
+		SELECT
+		<include refid="Table_Fields_Alias" />
+		,COUNT(DISTINCT vc.id) as comtCount
+ 		FROM VIDEO v
+ 		LEFT JOIN video_comment vc ON vc.topic_id=v.id
+ 		WHERE v.ID = #{id}
+	</select>
+	
+	<select id="queryByCondition" parameterType="com.wm.mapper.entity.Video" resultMap="video">
+		SELECT 
+		<include refid="Table_Fields" />
+		FROM VIDEO 
+		<include refid="Where_Conditions" />
+	</select>
+	
+	<select id="queryByPage" parameterType="java.util.Map" resultMap="video">
+		SELECT
+		<include refid="Table_Fields" />
+ 		FROM VIDEO
+ 		<include refid="Where_Conditions" />
+ 		ORDER BY TIME_STAMP DESC
+	</select>
+	
+	<select id="queryCount" parameterType="com.wm.mapper.entity.Video" resultType="java.lang.Long">
+		SELECT COUNT(ID)
+ 		FROM VIDEO
+ 		<include refid="Where_Conditions" />
+	</select>
+</mapper>

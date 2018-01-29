@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<link href="app/plugin/zui1.7.0/dist/css/zui.css" rel="stylesheet">
+<!-- <link href="app/zui/css/zui.css" rel="stylesheet"> -->
+<!-- <link id="link-theme" href=" app/zui/css/zui-theme.css" rel="stylesheet"> -->
+<link href="app/css/admin-main.css" rel="stylesheet">
+
+<style>
+body {
+	background: rgba(128, 128, 128, 0.92);
+	background-image: url("app/images/bodyback.jpg");
+}
+
+.cc {
+	width: 370px;
+	height: 290px;
+	position: relative;
+	top: 201px;
+	left: 1000px;
+	padding: 49px;
+	border-radius: 0px;
+}
+
+.inp {
+	margin: 10px;
+	border-radius: 0px;
+}
+
+.butt {
+	margin-left: 10px;
+	margin-top: 5px;
+	border-radius: 0px;
+	width: 220px;
+}
+
+.check {
+	margin-top: 15px;
+	margin-left: 10px;
+}
+</style>
+<body>
+
+	<div class="panel cc">
+		<div class="panel-body">
+			<form action="/SmvcFramework/main/login.wmctl" method="post">
+				<div class="input-group inp">
+					<span class="input-group-addon">帐号</span> <input type="text"
+						name="uAccount" class="form-control" placeholder="帐号">
+				</div>
+
+				<div class="input-group inp">
+					<span class="input-group-addon ">密码</span> <input type="password"
+						name="uPwd" class="form-control" placeholder="密码">
+				</div>
+
+				<div class="checkbox check">
+					<label> <input type="checkbox">记住密码
+					</label>
+				</div>
+
+				<input class="btn butt btn-danger" type="submit" value=" 登录 " />
+				<!-- 		 		<input class="btn butt" type="reset" value=" 重置 " /> -->
+				<!--     <div class="help-block">用户名可以包含特殊字符及汉字。</div> -->
+			</form>
+
+		</div>
+	</div>
+
+</body>
+</html>
