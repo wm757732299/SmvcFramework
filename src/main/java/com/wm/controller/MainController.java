@@ -54,12 +54,13 @@ public class MainController extends BaseController<SysUser> {
 
 	@Resource(type = SysActionService.class)
 	private SysActionService sysActionService;
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	/**
 	 * 登录进管理端主页
+	 * 
 	 * @param request
 	 * @return
 	 */
@@ -79,13 +80,13 @@ public class MainController extends BaseController<SysUser> {
 						uAccount, pwd);
 				// 调用loadUserByUsername
 				Authentication authentication = authenticationManager
-						.authenticate(authRequest); 
+						.authenticate(authRequest);
 				SecurityContextHolder.getContext().setAuthentication(
 						authentication);
 				HttpSession session = request.getSession();
 				// 这个非常重要，否则验证后将无法登陆
 				session.setAttribute("SPRING_SECURITY_CONTEXT",
-						SecurityContextHolder.getContext()); 
+						SecurityContextHolder.getContext());
 				result.put("success", "true");
 				result.put("msg", "请求成功");
 				result.put("data", "");
@@ -109,20 +110,18 @@ public class MainController extends BaseController<SysUser> {
 	public ModelAndView adminHome(HttpServletRequest request,
 			HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		LoginUserDetails user = getLoginUser();
-		 String loginerAction="";
-		 try {
-			 if(SysUser.SYS_ADMIN.equals(user.getId())){
-				// loginerAction="true";
-				 List<SysAction> action= sysActionService.queryLoginAct(user.getId());
-				 ObjectMapper mapper = new ObjectMapper();
-				 loginerAction = mapper.writeValueAsString(action);
-			 }else{
-				 List<SysAction> action= sysActionService.queryLoginAct(user.getId());
-				 ObjectMapper mapper = new ObjectMapper();
-				 loginerAction = mapper.writeValueAsString(action);
-			 }
+		String loginerAction = "";
+		try {
+			if (SysUser.SYS_ADMIN.equals(user.getId())) {
+				loginerAction = "true";
+			} else {
+				List<SysAction> action = sysActionService.queryLoginAct(user.getId());
+				user.setAction(action);
+				ObjectMapper mapper = new ObjectMapper();
+				loginerAction = mapper.writeValueAsString(action);
+			}
 		} catch (JsonProcessingException e) {
 			LOGGER.info(e);
 		}
@@ -135,6 +134,7 @@ public class MainController extends BaseController<SysUser> {
 
 	/**
 	 * 首页
+	 * 
 	 * @param request
 	 * @return
 	 */
@@ -157,8 +157,8 @@ public class MainController extends BaseController<SysUser> {
 	}
 
 	/**
-	 * 退出登录 
-	 * 此方法不用，退出操作在security配置文件中配置
+	 * 退出登录 此方法不用，退出操作在security配置文件中配置
+	 * 
 	 * @param request
 	 * @return
 	 */
@@ -176,37 +176,34 @@ public class MainController extends BaseController<SysUser> {
 		return "redirect:/login?logout";
 	}
 
-	
-	//=======================web端=============================//
+	// =======================web端=============================//
 	@ResponseBody
 	@RequestMapping(value = "/web/index", method = { RequestMethod.POST,
 			RequestMethod.GET })
 	public ModelAndView webIndex(HttpServletRequest request,
 			HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
-	 
-		 
-		
+
 		return new ModelAndView("main/website/index", result);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/web/checklogin", method = { RequestMethod.POST,
 			RequestMethod.GET })
-	public Map<String, Object> checkLogin(HttpServletRequest request, HttpServletResponse response) {
+	public Map<String, Object> checkLogin(HttpServletRequest request,
+			HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+
 		try {
-			
+
 			LoginUserDetails lud = getLoginUser();
-			
-		//	if(lud.getId()=="userid")
-			if(lud!=null){
+
+			// if(lud.getId()=="userid")
+			if (lud != null) {
 				result.put("success", "true");
 				result.put("msg", "请求成功");
 				result.put("data", lud);
-			}else{
+			} else {
 				result.put("success", "false");
 				result.put("msg", "请求失败");
 			}
@@ -216,6 +213,6 @@ public class MainController extends BaseController<SysUser> {
 			result.put("msg", "请求失败");
 		}
 		return result;
-	
+
 	}
 }
