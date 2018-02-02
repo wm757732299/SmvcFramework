@@ -35,16 +35,18 @@
 		</property>
 	</bean>
 
-	<!-- 组件扫描      自动扫描(自动注入) -->
+	<!-- 组件扫描 自动扫描(自动注入) -->
 	<context:annotation-config />
 	<context:component-scan base-package="com.wm.annotation" />
+	<context:component-scan base-package="com.wm.common.aspect" />
 	<context:component-scan base-package="com.wm.common.db" />
 	<context:component-scan base-package="com.wm.mapper" />
 	<context:component-scan base-package="com.wm.service.impl" />
-	<!-- 	定时作业调度 -->
+	<!-- 定时作业调度 -->
 	<context:component-scan base-package="com.wm.timetask" />
-    <!-- 	加入task引入 -->
-	<task:annotation-driven/>
+	
+	<!-- 加入task引入 -->
+	<task:annotation-driven />
 
 	<!-- 数据源 -->
 	<bean id="dataSource1" class="com.mchange.v2.c3p0.ComboPooledDataSource"
@@ -73,7 +75,7 @@
 	<!-- 数据源 -->
 	<bean id="dataSource2" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		scope="singleton" destroy-method="close">
-		
+
 		<property name="driverClass" value="${c3p0.driverClass}" />
 		<property name="jdbcUrl" value="${c3p0.db1.jdbcUrl}" />
 		<property name="user" value="${c3p0.db1.user}" />
@@ -102,7 +104,7 @@
 				<entry key="DSK2" value-ref="dataSource2" />
 			</map>
 		</property>
-<!-- 		<property name="defaultTargetDataSource" ref="dataSource2"></property> -->
+		<!-- <property name="defaultTargetDataSource" ref="dataSource2"></property> -->
 	</bean>
 
 	<!-- 配置sessionFactory -->
@@ -110,34 +112,33 @@
 		<property name="dataSource">
 			<ref bean="dataSource" />
 		</property>
-		<property name="configLocation"
-			value="classpath:com/wm/config/spring-mybatis.xml" />
+		<property name="configLocation" value="classpath:com/wm/config/spring-mybatis.xml" />
 	</bean>
 
-	<!--  redis配置 -->
- 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
-        <property name="maxIdle" value="${redis.maxIdle}" />  
-        <property name="maxTotal" value="${redis.maxActive}" />  
-        <property name="maxWaitMillis" value="${redis.maxWait}" />  
-        <property name="testOnBorrow" value="${redis.testOnBorrow}" />  
-    </bean>  
-    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-    <constructor-arg ref="jedisPoolConfig" />   
-        <property name="hostName" value="${redis.host}" />  
-    	<property name="port" value="${redis.port}" />  
-<!--         p:password="${redis.pass}"   -->
-	</bean> 
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">  
-        <property name="connectionFactory"   ref="connectionFactory" />  
-    </bean>
+	<!-- redis配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}" />
+		<property name="maxTotal" value="${redis.maxActive}" />
+		<property name="maxWaitMillis" value="${redis.maxWait}" />
+		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
+	</bean>
+	<bean id="connectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg ref="jedisPoolConfig" />
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<!-- p:password="${redis.pass}" -->
+	</bean>
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+	</bean>
 
 
 	<!-- 扫描mybatis mappers -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.wm.mapper" />
 		<!-- 扫描带指定注解Mapper，与markerInterface取的是并集 -->
-		<property name="annotationClass"
-			value="com.wm.mapper.annotation.MybatisMapper" />
+		<property name="annotationClass" value="com.wm.mapper.annotation.MybatisMapper" />
 		<!-- <property name="markerInterface" value="" /> -->
 		<!-- 在多个数据源的时候才使用 -->
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
@@ -163,59 +164,40 @@
 	<!-- READ_COMMITTED 读取已提交数据(会出现不可重复读和幻读)。 oracle支持 -->
 	<!-- REPEATABLE_READ 可重复读(会出现幻读)。 oracle不支持 -->
 	<!-- SERIALIZABLE 串行化。 oralce支持 -->
+
+
 	<!-- proxy-target-class=ture基于类的代理（CGLIB），否则基于接口的代理（JDK） -->
 	<!-- order="2"限定了事务在数据源切换后再开启 -->
 	<tx:annotation-driven transaction-manager="transactionManager"
 		proxy-target-class="true" order="2" />
 
-	<!-- 启用aop注解 -->
+	<!-- spring容器(父容器)启用aop注解 默认 proxy-target-class="false" 基于接口的代理（JDK），否则 
+		基于类的代理（CGLIB -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 
-<!-- 拦截器方式配置事务  (另一种事务配置方式，非注解)
-	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="add*" propagation="REQUIRED" />
-			<tx:method name="append*" propagation="REQUIRED" />
-			<tx:method name="insert*" propagation="REQUIRED" />
-			<tx:method name="save*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="modify*" propagation="REQUIRED" />
-			<tx:method name="edit*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-			<tx:method name="remove*" propagation="REQUIRED" />
-			<tx:method name="repair" propagation="REQUIRED" />
-			<tx:method name="delAndRepair" propagation="REQUIRED" />
- 
-			<tx:method name="get*" propagation="SUPPORTS" />
-			<tx:method name="find*" propagation="SUPPORTS" />
-			<tx:method name="load*" propagation="SUPPORTS" />
-			<tx:method name="search*" propagation="SUPPORTS" />
-			<tx:method name="datagrid*" propagation="SUPPORTS" />
- 
-			<tx:method name="*" propagation="SUPPORTS" />
-		</tx:attributes>
-	</tx:advice>
-	
-	<aop:config>
-		<aop:pointcut id="transactionPointcut" expression="execution(* sy.service..*Impl.*(..))" />
-		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
-	</aop:config>
-
--->
-
-
-
-
-
-
+	<!-- 拦截器方式配置事务 (另一种事务配置方式，非注解) <tx:advice id="transactionAdvice" transaction-manager="transactionManager"> 
+		<tx:attributes> <tx:method name="add*" propagation="REQUIRED" /> <tx:method 
+		name="append*" propagation="REQUIRED" /> <tx:method name="insert*" propagation="REQUIRED" 
+		/> <tx:method name="save*" propagation="REQUIRED" /> <tx:method name="update*" 
+		propagation="REQUIRED" /> <tx:method name="modify*" propagation="REQUIRED" 
+		/> <tx:method name="edit*" propagation="REQUIRED" /> <tx:method name="delete*" 
+		propagation="REQUIRED" /> <tx:method name="remove*" propagation="REQUIRED" 
+		/> <tx:method name="repair" propagation="REQUIRED" /> <tx:method name="delAndRepair" 
+		propagation="REQUIRED" /> <tx:method name="get*" propagation="SUPPORTS" /> 
+		<tx:method name="find*" propagation="SUPPORTS" /> <tx:method name="load*" 
+		propagation="SUPPORTS" /> <tx:method name="search*" propagation="SUPPORTS" 
+		/> <tx:method name="datagrid*" propagation="SUPPORTS" /> <tx:method name="*" 
+		propagation="SUPPORTS" /> </tx:attributes> </tx:advice> <aop:config> <aop:pointcut 
+		id="transactionPointcut" expression="execution(* sy.service..*Impl.*(..))" 
+		/> <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" 
+		/> </aop:config> -->
 
 
 	<!-- 配置ehcache -->
 	<bean id="cacheManagerFactory"
 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
-		p:configLocation="classpath:com/wm/config/ehcache.xml"
-		p:shared="false" />
+		p:configLocation="classpath:com/wm/config/ehcache.xml" p:shared="false" />
 
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
 		p:cacheManager-ref="cacheManagerFactory" />
