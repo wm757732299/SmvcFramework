@@ -106,7 +106,7 @@ var Home = function() {
 	return {
 		init : function() {
 			if(loginerAction){
-				PermissionBtn.init(loginerAction);
+				PermissionAct.init(loginerAction);
 			}
 		},
 		changeTheme : function(themestr) {

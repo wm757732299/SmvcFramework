@@ -171,8 +171,8 @@
 	<tx:annotation-driven transaction-manager="transactionManager"
 		proxy-target-class="true" order="2" />
 
-	<!-- spring容器(父容器)启用aop注解 默认 proxy-target-class="false" 基于接口的代理（JDK），否则 
-		基于类的代理（CGLIB -->
+	<!-- spring容器(父容器)启用aop注解 默认 proxy-target-class="false" 基于接口的代理JDK，否则 
+		基于类的代理CGLIB -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 

@@ -2,10 +2,12 @@ package com.wm.model;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import com.wm.mapper.entity.SysAction;
 import com.wm.mapper.entity.SysUser;
 
 /**
@@ -40,10 +42,12 @@ public class LoginUserDetails extends User {
 	private Date timeStamp;
 	private int deleteMark;
 	private String spare;
-	
+
 	private Integer roleLevel;
-	
+
 	private String roleName;
+
+	private String[] action;
 
 	public String getId() {
 		return id;
@@ -165,14 +169,33 @@ public class LoginUserDetails extends User {
 		this.roleName = roleName;
 	}
 
+	public String[] getAction() {
+		return action;
+	}
+
+	public void setAction(String[] action) {
+		this.action = action;
+	}
+
+	public void setAction(List<SysAction> action) {
+		if (action == null)
+			return ;
+		String[] arr = new String[action.size()];
+		for (int i = 0; i < action.size(); i++) {
+			SysAction sa = action.get(i);
+			arr[i] = sa.getId()+(sa.getActUrl()==null?"":sa.getActUrl());
+		}
+		this.action = arr;
+	}
+
 	public void setSysUser(SysUser sysUser) {
 
 		this.id = sysUser.getId();
 		this.uAccount = sysUser.getuAccount();
 		this.uName = sysUser.getuName();
 		this.uEmail = sysUser.getuEmail();
-		this.roleName=sysUser.getRoleName();
-		this.uPhoto =sysUser.getuPhoto();
+		this.roleName = sysUser.getRoleName();
+		this.uPhoto = sysUser.getuPhoto();
 
 	}
 

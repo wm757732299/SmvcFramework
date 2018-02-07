@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.wm.annotation.Validate;
+import com.wm.annotation.Validate.Permission;
 import com.wm.controller.base.BaseController;
 import com.wm.mapper.entity.SysMenu;
 import com.wm.service.SysMenuService;
@@ -71,7 +73,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 			result.put("msg", "请求成功");
 			result.put("data", menus);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info(e);
 			result.put("success", "false");
 			result.put("msg", "请求失败");
 		}
@@ -118,7 +120,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 			result.put("msg", "请求成功");
 			result.put("data", menus);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info(e);
 			result.put("success", "false");
 			result.put("msg", "请求失败");
 		}
@@ -205,7 +207,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 			result.put("msg", "请求成功");
 			result.put("data", "");
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info(e);
 			result.put("success", "false");
 			result.put("msg", "请求失败");
 		}
@@ -218,6 +220,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 	 * @param sysMenu
 	 * @return
 	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/save_menu", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -240,7 +243,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 				result.put("data", sysMenu);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info(e);
 			result.put("success", "false");
 			result.put("msg", "请求失败");
 		}
@@ -265,7 +268,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 			result.put("msg", "请求成功");
 			result.put("data", m);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info(e);
 			result.put("success", "false");
 			result.put("msg", "请求失败");
 		}
@@ -278,6 +281,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 	 * @param sysMenu
 	 * @return
 	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/edit_save", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -325,7 +329,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 				result.put("data", sysMenu);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info(e);
 			result.put("success", "false");
 			result.put("msg", "请求失败");
 		}
@@ -338,6 +342,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 	 * @param sysMenu
 	 * @return
 	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/del_menu", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -353,7 +358,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 			result.put("data", "");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info(e);
 			result.put("success", "false");
 			result.put("msg", "删除失败");
 		}

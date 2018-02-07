@@ -147,15 +147,15 @@ public class SysUserController extends BaseController<SysUser> {
 	}
 
 	/**
-	 * 新增、编辑 保存
+	 * 新增 保存
 	 * 
 	 * @param sysUser
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/save_user", method = { RequestMethod.POST,
+	@RequestMapping(value = "/add_save", method = { RequestMethod.POST,
 			RequestMethod.GET })
-	public Map<String, Object> saveUser(SysUser sysUser) {
+	public Map<String, Object> addSave(SysUser sysUser) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
 			SysUser u = sysUserService.queryByKey(sysUser.getId());
@@ -184,6 +184,45 @@ public class SysUserController extends BaseController<SysUser> {
 		return result;
 	}
 
+	
+	/**
+	 * 编辑 保存
+	 * 
+	 * @param sysUser
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/edit_save", method = { RequestMethod.POST,
+			RequestMethod.GET })
+	public Map<String, Object> editSave(SysUser sysUser) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		try {
+			SysUser u = sysUserService.queryByKey(sysUser.getId());
+			Timestamp tp = new Timestamp(new Date().getTime());
+			sysUser.setTimeStamp(tp);
+			if (u != null) {
+				sysUser.setuAccount(null);
+				sysUserService.update(sysUser);
+			} else {
+				if(sysUser.getuPwd()==null){
+					sysUser.setuPwd("000000");
+				}
+				sysUser.setuType("A");
+				sysUser.setuStatus("Y");
+				sysUser.setCreateTime(tp);
+				sysUserService.insert(sysUser);
+			}
+			result.put("success", "true");
+			result.put("msg", "请求成功");
+			result.put("data", "");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.put("success", "false");
+			result.put("msg", "请求失败");
+		}
+		return result;
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/del_user", method = { RequestMethod.POST,
 			RequestMethod.GET })

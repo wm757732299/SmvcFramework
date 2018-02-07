@@ -130,7 +130,7 @@ var UserList = function() {
 
 	var _theAddUserWindow = null;
 	var _addUserWindow = function() {
-		var addHmtl = UserAdd.getAddUserHtml();
+		var addHmtl = UserAdd.addWin("saveSave");
 		_theAddUserWindow = Dialog.dialog({
 			backdrop : 'static',
 			toggle : 'modal',
@@ -145,8 +145,8 @@ var UserList = function() {
 		_theAddUserWindow.show();
 	};
 
-	var _saveData = function() {
-		var saveUrl = basePath + "/sysuser/save_user.wmctl";
+	var _saveData = function(type) {
+		var saveUrl = basePath + "/sysuser/"+type+".wmctl";
 		var formData = $("#IForm").serialize();
 		// var shuju = decodeURIComponent(data,true); //将数据解码
 		AjaxRequest.asyncAjaxPost(saveUrl, formData, function(result) {
@@ -262,8 +262,11 @@ var UserList = function() {
 		addUserWindow : function() {
 			_addUserWindow();
 		},
-		saveData : function() {
-			_saveData();
+		saveSave : function() {
+			_saveData("add_save");
+		},
+		editSave : function() {
+			_saveData("edit_save");
 		},
 		editUserWindow : function(id){
 			_editUserWindow(id);

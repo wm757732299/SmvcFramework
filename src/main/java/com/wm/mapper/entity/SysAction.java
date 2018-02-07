@@ -13,11 +13,18 @@ public class SysAction implements Serializable {
 	private String id;
 	private Integer actCode;
 	private String actName;
+	private String actUrl;
 	private Integer actType;
 	private String menuId;
 	private Date createTime;
 	private Date timeStamp;
 	private int deleteMark;
+	
+	//-----非持久化字段-----//
+	
+	private int auttyMark;//是否选中
+	
+	private String menuName;
 
 	public SysAction() {
 		this.deleteMark = 0;
@@ -45,6 +52,14 @@ public class SysAction implements Serializable {
 
 	public void setActName(String actName) {
 		this.actName = actName;
+	}
+
+	public String getActUrl() {
+		return actUrl;
+	}
+
+	public void setActUrl(String actUrl) {
+		this.actUrl = actUrl;
 	}
 
 	public Integer getActType() {
@@ -87,4 +102,19 @@ public class SysAction implements Serializable {
 		this.deleteMark = deleteMark;
 	}
 
+	public int getAuttyMark() {
+		return auttyMark;
+	}
+
+	public void setAuttyMark(int auttyMark) {
+		this.auttyMark = auttyMark;
+	}
+
+	public String getMenuName() {
+		return menuName;
+	}
+
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}
 }

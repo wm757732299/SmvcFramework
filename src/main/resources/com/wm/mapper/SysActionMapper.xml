@@ -8,6 +8,7 @@
 		<result property="id" column="ID" />	
 		<result property="actCode" column="ACT_CODE" />	
 		<result property="actName" column="ACT_NAME" />	
+		<result property="actUrl" column="ACT_URL" />	
 		<result property="actType" column="ACT_TYPE" />	
 		<result property="menuId" column="MENU_ID" />	
 		<result property="createTime" column="CREATE_TIME" />	
@@ -17,7 +18,7 @@
 
 
 	<sql id="Table_Fields">
-		 ID,ACT_CODE,ACT_NAME,ACT_TYPE,MENU_ID,CREATE_TIME,TIME_STAMP,DELETE_MARK
+		 ID,ACT_CODE,ACT_NAME,ACT_URL,ACT_TYPE,MENU_ID,CREATE_TIME,TIME_STAMP,DELETE_MARK
 	</sql>
 
     <sql id="Where_Conditions">
@@ -31,6 +32,9 @@
 			</if>	
 			<if test="actName != null"> 
 				AND ACT_NAME = #{actName} 
+			</if>	
+			<if test="actUrl != null"> 
+				AND ACT_URL = #{actUrl} 
 			</if>	
 			<if test="actType != null"> 
 				AND ACT_TYPE = #{actType} 
@@ -61,6 +65,9 @@
 			<if test="actName != null"> 
 				ACT_NAME = #{actName}, 
 			</if>	
+			<if test="actUrl != null"> 
+				ACT_URL = #{actUrl}, 
+			</if>	
 			<if test="actType != null"> 
 				ACT_TYPE = #{actType}, 
 			</if>	
@@ -82,9 +89,9 @@
 	<insert id="insert" parameterType="com.wm.mapper.entity.SysAction" >
 			<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">select uuid()</selectKey>
 			INSERT INTO SYS_ACTION
-			  (ID,ACT_CODE,ACT_NAME,ACT_TYPE,MENU_ID,CREATE_TIME,TIME_STAMP,DELETE_MARK)
+			  (ID,ACT_CODE,ACT_NAME,ACT_URL,ACT_TYPE,MENU_ID,CREATE_TIME,TIME_STAMP,DELETE_MARK)
 			VALUES 
-			  (#{id},#{actCode},#{actName},#{actType},#{menuId},#{createTime},#{timeStamp},#{deleteMark})
+			  (#{id},#{actCode},#{actName},#{actUrl},#{actType},#{menuId},#{createTime},#{timeStamp},#{deleteMark})
 	</insert>
 	
 	<delete id="deleteTrueByKey" parameterType="java.lang.String" >
@@ -115,17 +122,40 @@
 	</select>
 	
 	<select id="queryByCondition" parameterType="com.wm.mapper.entity.SysAction" resultMap="sysAction">
+		SELECT
+		t.ID,t.ACT_CODE,t.ACT_NAME,t.ACT_URL,t.ACT_TYPE,t.MENU_ID,t.CREATE_TIME,t.TIME_STAMP,t.DELETE_MARK,
+		m.menu_name AS menuName
+ 		FROM SYS_ACTION t
+ 		LEFT JOIN sys_menu  m ON m.id =t.menu_id 
+ 		WHERE   1=1
+			<if test="id != null"> 
+				AND t.ID = #{id} 
+			</if>	
+			<if test="actCode != null"> 
+				AND t.ACT_CODE = #{actCode} 
+			</if>	
+			<if test="actName != null"> 
+				AND t.ACT_NAME = #{actName} 
+			</if>	
+			<if test="actUrl != null"> 
+				AND t.ACT_URL = #{actUrl} 
+			</if>	
+			<if test="actType != null"> 
+				AND t.ACT_TYPE = #{actType} 
+			</if>	
+			<if test="menuId != null"> 
+				AND t.MENU_ID = #{menuId} 
+			</if>	
+			<if test="deleteMark != null"> 
+				AND t.DELETE_MARK = #{deleteMark} 
+			</if>	
+	</select>
+	
+	<select id="queryByPage" parameterType="java.util.Map" resultMap="sysAction">
 		SELECT 
 		<include refid="Table_Fields" />
 		FROM SYS_ACTION 
 		<include refid="Where_Conditions" />
-	</select>
-	
-	<select id="queryByPage" parameterType="java.util.Map" resultMap="sysAction">
-		SELECT
-		<include refid="Table_Fields" />
- 		FROM SYS_ACTION
- 		<include refid="Where_Conditions" />
  		ORDER BY TIME_STAMP DESC
 	</select>
 	
@@ -136,16 +166,80 @@
 	</select>
 	
 	<select id="queryLoginAct" parameterType="java.lang.String" resultMap="sysAction">
- 		SELECT
+		SELECT
 			sac.id,
 			sac.act_name,
 			sac.menu_id
 		FROM
 			sys_action sac
 		LEFT JOIN sys_role_action sra ON sra.action_id = sac.id
-		LEFT JOIN sys_role r ON r.id = sra.role_id
-		LEFT JOIN sys_user_role ur ON ur.role_id = r.id
+		LEFT JOIN sys_user_role ur ON ur.role_id = sra.role_id
 		WHERE
-			ur.user_id =#{userId} 
+			sac.delete_mark = 0
+		AND	ur.user_id = #{userId} 
+	</select>
+	
+	<select id="queryMenuAct" parameterType="java.util.Map" resultMap="sysAction">
+<!-- 		SELECT -->
+<!-- 			san.id, -->
+<!-- 			san.act_name, -->
+<!-- 			san.menu_id, -->
+<!-- 			san.act_code, -->
+<!-- 			san.act_type, -->
+<!-- 			SUM(( -->
+<!-- 				CASE -->
+<!-- 				WHEN ISNULL(r.id) THEN -->
+<!-- 					0 -->
+<!-- 				ELSE -->
+<!-- 					1 -->
+<!-- 				END -->
+<!-- 			)) AS auttyMark -->
+<!-- 		FROM -->
+<!-- 			sys_action san -->
+<!-- 		LEFT JOIN sys_role_action sra ON sra.action_id = san.id -->
+<!-- 		LEFT JOIN sys_user_role sur ON sur.role_id = sra.role_id -->
+<!-- 		LEFT JOIN sys_role r ON sur.role_id = r.id AND r.id = #{roleId} -->
+<!-- 		WHERE -->
+<!-- 			san.delete_mark = 0 -->
+<!-- 		AND san.menu_id = #{menuId} -->
+<!-- 		<if test="userId != null">  -->
+<!-- 			AND sur.user_id = #{userId} -->
+<!-- 		</if> -->
+<!-- 		GROUP BY san.id -->
+		SELECT
+			t.*,
+			SUM(
+				(
+					CASE
+					WHEN ISNULL(srac.id) THEN
+						0
+					ELSE
+						1
+					END
+				)
+			) AS auttyMark
+		FROM
+			(
+				SELECT
+					san.id,
+					san.act_name,
+					san.menu_id,
+					san.act_code,
+					san.act_type
+				FROM
+					sys_action san
+				LEFT JOIN sys_role_action sra ON sra.action_id = san.id
+				LEFT JOIN sys_user_role sur ON sur.role_id = sra.role_id
+				WHERE
+					san.delete_mark = 0
+				AND san.menu_id = #{menuId}
+				<if test="userId != null"> 
+				    AND sur.user_id = #{userId}
+				</if>
+			) t
+		LEFT JOIN sys_role_action srac ON srac.action_id = t.id
+		AND srac.role_id = #{roleId}
+		GROUP BY t.id
+		
 	</select>
 </mapper>

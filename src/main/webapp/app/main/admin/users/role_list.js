@@ -249,7 +249,7 @@ var RoleList = function() {
 		var _theAuthorizeWindow = Dialog.dialog({
 			backdrop : 'static',
 			toggle : 'modal',
-			height : '700px',
+			height : '600px',
 			width : '80%',
 			title : '【'+roleName+'】'+'授权',
 			iframe :basePath + '/sysrole/authorize_list.wmctl?roleId='+roleId,
@@ -262,7 +262,7 @@ var RoleList = function() {
 		var _theAuthorityWindow = Dialog.dialog({
 			backdrop : 'static',
 			toggle : 'modal',
-			height : '700px',
+			height : '600px',
 			width : '80%',
 			title : '【'+roleName+'】'+'权限',
 			iframe :basePath + '/sysrole/authority_menu.wmctl?roleId='+roleId,

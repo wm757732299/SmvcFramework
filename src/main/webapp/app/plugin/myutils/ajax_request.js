@@ -5,6 +5,21 @@
  * ======================================================================== */
 'use strict';
 var AjaxRequest = function() {
+	
+	/*方法执行效率测试
+	 * i 执行次数
+	 * 测试函数
+	 * 测试函数参数
+	 */
+	var  _codeEff = function(i, fn, para) {
+		var start = new Date().getTime();// 起始时间
+		for (var int = 0; int < i; int++) {
+			fn(para);
+		}
+		var end = new Date().getTime();// 接受时间
+		console.log("=======代码执行 " + i + "次耗时:" + (end - start) + "毫秒=======");
+	}
+	
 
 	var _asyncAjax = function(url, data, callback) {
 		$.ajax({
@@ -59,6 +74,9 @@ var AjaxRequest = function() {
 		},
 		syncAjaxPost : function(url, data, callback){
 			_syncAjaxPost(url, data, callback);
+		},
+		codeEff :function(i, fn, para){
+			_codeEff(i, fn, para);
 		}
 
 	}

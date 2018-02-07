@@ -1,6 +1,7 @@
 package com.wm.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.springframework.stereotype.Repository;
@@ -15,5 +16,7 @@ import com.wm.mapper.entity.SysAction;
 public interface SysActionMapper extends IBaseMapper<SysAction> {
 
 	public List<SysAction> queryLoginAct(String userId);
+
+	public List<SysAction> queryMenuAct(Map<String, String> param);
 
 }

@@ -23,22 +23,62 @@ html, body {
 
 .divv_1_0 {
 	width: 23%;
-	height: 88%;
+	height: 80%;
 	margin: 5px;
 	float: left;
 	border: 1px rgba(56, 52, 52, 0.02) solid;
 }
 
 .div_1_1 {
-	width: 75%;
-	height: 88%;
-	margin: 5px;
+	width: 31%;
+	height: 80%;
+	margin-top: 5px;
 	float: left;
-	border: 1px rgba(56, 52, 52, 0.02) solid;
+	border: 1px rgba(3, 131, 42, 0.51) solid;
+}
+
+.div_1_2 {
+	width: 8%;
+	height: 80%;
+	margin-top: 5px;
+	float: left;
+	position: relative;
+	text-align: center;
+	/* 	border: 1px rgba(3, 131, 42, 0.51) solid; */
 }
 
 #datatable-childNodeTable>.datatable-head {
 	display: none;
+}
+
+.panel-body {
+	overflow: auto;
+	height: 90%;
+}
+
+.yx_wx {
+	position: absolute;
+	top: 50%;
+	margin-top: -15px;
+	margin-right: 30px;
+	right: 50%;
+	margin-right: -25px;
+}
+
+.wx_yx {
+	position: absolute;
+	top: 50%;
+	margin-top: 10px;
+	right: 50%;
+	margin-right: -25px;
+}
+
+#act_wx>.btn {
+	margin: 2px;
+}
+
+#act_yx>.btn {
+	margin: 2px;
 }
 </style>
 </head>
@@ -75,34 +115,28 @@ html, body {
 			</ul>
 		</div>
 	</div>
-	<div class="div_1_1 panel panel-info">
-		<div class="panel-heading">详情</div>
-		<div class="panel-body">
-			<table id="parentNodeTable" class="table  ">
-				<thead>
-					<tr>
-						<th>名称</th>
-						<th>图标</th>
-						<th>地址</th>
-						<th>是否可用</th>
-						<th>节点类型</th>
-					</tr>
-				</thead>
-			</table>
 
-			<table id="childNodeTable" class="table table-bordered">
-
-			</table>
-
-		</div>
-		<div class="panel-footer"></div>
+	<!-- <div id="act_wx_yx" class="act_wx_yx"> -->
+	<div class="div_1_1 panel-warning">
+		<div class="panel-heading">未选</div>
+		<div id="act_wx" class="panel-body  wx"></div>
 	</div>
 
-
+	<div class="div_1_2 panel-warning">
+		<button class="btn btn-mini yx_wx" type="button" onclick="AuthorityMenu.add();">
+			添加<i class="icon icon-double-angle-right"></i>
+		</button>
+		<button class="btn btn-mini wx_yx" type="button" onclick="AuthorityMenu.remove();">
+			<i class="icon icon-double-angle-left"></i>移除
+		</button>
+	</div>
+	<div class="div_1_1 panel-success">
+		<div class="panel-heading">已选</div>
+		<div id="act_yx" class="panel-body yx"></div>
+	</div>
 	<script src="${basePath}/app/plugin/myutils/data_model.js"></script>
 	<script src="${basePath}/app/plugin/myutils/dialog.js"></script>
 	<script src="${basePath}/app/plugin/ztree/js/jquery.ztree.all.js"></script>
 	<script src="${basePath}/app/main/admin/users/authority_menu.js"></script>
-	<script src="${basePath}/app/main/admin/menu/menu_add.js"></script>
 </body>
 </html>
