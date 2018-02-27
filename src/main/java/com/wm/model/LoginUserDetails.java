@@ -21,12 +21,11 @@ public class LoginUserDetails extends User {
 
 	private static final long serialVersionUID = 4560824712192306940L;
 
-	public LoginUserDetails(String username, String password, boolean enabled,
-			boolean accountNonExpired, boolean credentialsNonExpired,
-			boolean accountNonLocked,
+	public LoginUserDetails(String username, String password, boolean enabled, boolean accountNonExpired,
+			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
-		super(username, password, enabled, accountNonExpired,
-				credentialsNonExpired, accountNonLocked, authorities);
+		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
+				authorities);
 	}
 
 	private String id;
@@ -179,11 +178,14 @@ public class LoginUserDetails extends User {
 
 	public void setAction(List<SysAction> action) {
 		if (action == null)
-			return ;
+			return;
 		String[] arr = new String[action.size()];
 		for (int i = 0; i < action.size(); i++) {
 			SysAction sa = action.get(i);
-			arr[i] = sa.getId()+(sa.getActUrl()==null?"":sa.getActUrl());
+			 arr[i] = sa.getId()+(sa.getActUrl()==null?"":sa.getActUrl());
+//			if (sa.getActUrl() == null || sa.getActUrl().length() == 0)
+//				continue;
+//			arr[i] = sa.getActUrl();
 		}
 		this.action = arr;
 	}

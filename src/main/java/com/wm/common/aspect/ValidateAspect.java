@@ -62,10 +62,6 @@ public class ValidateAspect {
 		Method soruceMethod = null;
 		try {
 			soruceMethod = getSourceMethod(jp);
-			String[] clazzPath = jp.getTarget().getClass().getAnnotation(RequestMapping.class).value();
-			String[] methodPath = soruceMethod.getAnnotation(RequestMapping.class).value();
-			methodMapping += clazzPath[0] + methodPath[0];
-
 			Validate vali = soruceMethod.getAnnotation(Validate.class);
 			if (vali != null) {
 				Permission type = vali.permission();
@@ -81,6 +77,10 @@ public class ValidateAspect {
 					if (SysUser.SYS_ADMIN.equals(lud.getId())) {
 						return;
 					} else {
+						String[] clazzPath = jp.getTarget().getClass().getAnnotation(RequestMapping.class).value();
+						String[] methodPath = soruceMethod.getAnnotation(RequestMapping.class).value();
+						methodMapping += clazzPath[0] + methodPath[0];
+						
 						String perStr = request.getParameter("actId") + methodMapping;
 						String[] actArr = lud.getAction();
 						for (int i = 0; actArr != null && i < actArr.length; i++) {

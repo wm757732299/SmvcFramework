@@ -89,7 +89,7 @@ var UserList = function() {
 		formatter : [ function uType (v,i) {
 			var btn=[
 			         {name:'edituser',clazz:'btn btn-mini',onclick:'UserList.editUserWindow(\''+i+'\')',icon:'icon icon-edit',actName:'编辑'},
-			         {name:'deluser',clazz:'btn btn-mini ',onclick:'UserList.delUser(\''+i+'\')',icon:'icon icon-trash',bstyle:'margin-left: 3px;',istyle:'color:red;',actName:'删除'}
+			         {name:'deluser',clazz:'btn btn-mini',onclick:'UserList.delUser(\''+i+'\')',icon:'icon icon-trash',bstyle:'margin-left: 3px;',istyle:'color:red;',actName:'删除'}
 			        ];
 			return PermissionAct.build(btn,_menuId);
 		} , function uAccount (v){
