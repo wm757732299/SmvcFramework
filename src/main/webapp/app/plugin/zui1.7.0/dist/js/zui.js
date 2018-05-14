@@ -2905,11 +2905,12 @@
                 $modal.addClass('modal-iframe');
                 this.firstLoad = true;
                 var iframeName = 'iframe-' + options.name;
+                var menuid = options.menuid?options.menuid:'';
                 $header.detach();
                 $body.detach();
                 $content.empty().append($header).append($body);
                 $body.css('padding', 0)
-                    .html('<iframe id="' + iframeName + '" name="' + iframeName + '" src="' + options.url + '" frameborder="no"  allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"  allowtransparency="true" scrolling="auto" style="width: 100%; height: 100%; left: 0px;"></iframe>');
+                    .html('<iframe id="' + iframeName + '" name="' + iframeName +'"data-menuid="'+menuid + '" src="' + options.url + '" frameborder="no"  allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"  allowtransparency="true" scrolling="auto" style="width: 100%; height: 100%; left: 0px;"></iframe>');
 
                 if(options.waittime > 0) {
                     that.waitTimeout = readyToShow(options.waittime, onLoadBroken);

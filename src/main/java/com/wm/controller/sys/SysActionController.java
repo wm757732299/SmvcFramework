@@ -81,7 +81,7 @@ public class SysActionController extends BaseController<SysAction> {
 		return result;
 
 	}
-	@Validate(permission = Permission.ORDINARY)
+	@Validate(permission = Permission.SUPER)
 	@ResponseBody
 	@RequestMapping(value = "/del_action", method = { RequestMethod.POST, RequestMethod.GET })
 	public Map<String, Object> delAction(@RequestParam("actionId") String actionId) {
@@ -183,6 +183,7 @@ public class SysActionController extends BaseController<SysAction> {
 	 * @param sysAction
 	 * @return
 	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/add_act", method = { RequestMethod.POST, RequestMethod.GET })
 	public Map<String, Object> addAct(@RequestParam("actIds[]") String[] actIds,
@@ -204,11 +205,12 @@ public class SysActionController extends BaseController<SysAction> {
 	}
 
 	/**
-	 * 为指定角色授权操作
+	 * 移除定角色的授权操作
 	 * 
 	 * @param sysAction
 	 * @return
 	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/remove_act", method = { RequestMethod.POST, RequestMethod.GET })
 	public Map<String, Object> removeAct(@RequestParam("actIds[]") String[] actIds,

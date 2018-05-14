@@ -183,7 +183,7 @@ var WebNewsList = function() {
 			};
 		var delUrl = basePath + "/sysuser/del_user.wmctl";
 		AjaxRequest.asyncAjaxPost(delUrl, delData, function(result) {
-			if (result.success = "true") {
+			if (result.success == "true") {
 				Dialog.getDelDialog().close();
 				_reLoadData(_param);
 			} else {

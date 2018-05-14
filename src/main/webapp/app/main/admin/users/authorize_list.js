@@ -99,20 +99,21 @@ var AuthorizeList = function() {
 				colClass : 'text-center',
 				formatter : [
 						function autzeMark(v, i) {
+							var btn=null;
 							if (v == 1) {
-								return '<button name ="squser" class="btn btn-mini btn-warning" onclick="javascript:AuthorizeList.cancelAutze(\''
-										+ i
-										+ '\')" style="margin-right: 20px;"><i class="icon icon-reply-all">撤权</i></button>';
+								btn = [
+						         {name:'squser',clazz:'btn btn-mini btn-warning',onclick:'AuthorizeList.cancelAutze(\''+i+'\')',icon:'icon icon-reply-all',bstyle:'margin-right: 20px;',actName:'撤权'}
+						         ];
 							} else if (v == 0) {
-								return '<button name ="squser" class="btn btn-mini btn-success" onclick="javascript:AuthorizeList.authorize(\''
-										+ i
-										+ '\')" style="margin-right: 20px;"><i class="icon icon-hand-right">授权</i></button>';
-							} else {
-								return '--';
-							}
+								btn = [
+								    {name:'squser',clazz:'btn btn-mini btn-success',onclick:'AuthorizeList.authorize(\''+i+'\')',icon:'icon icon-hand-right',bstyle:'margin-right: 20px;',actName:'授权'}
+								      ];
+							}  
+							return PermissionAct.build(btn,_menuId);
 						} ]
 			} ];
-
+	
+	var _menuId=$(window.frameElement).data("menuid");
 	var _url = basePath + "/sysrole/authorize_user_list.wmctl";
 	var _param = null;
 	var _data = null;
@@ -172,7 +173,7 @@ var AuthorizeList = function() {
 		};
 		var autzeUrl = basePath + "/sysrole/authorize_user.wmctl";
 		AjaxRequest.asyncAjaxPost(autzeUrl, autzeData, function(result) {
-			if (result.success = "true") {
+			if (result.success == "true") {
 				_reLoadData(_param);
 			} else {
 				alert(result.msg);
@@ -205,7 +206,7 @@ var AuthorizeList = function() {
 		};
 		var zutzeUrl = basePath + "/sysrole/cancel_authorize.wmctl";
 		AjaxRequest.asyncAjaxPost(zutzeUrl, autzeData, function(result) {
-			if (result.success = "true") {
+			if (result.success == "true") {
 				_reLoadData(_param);
 			} else {
 				alert(result.msg);
@@ -216,9 +217,14 @@ var AuthorizeList = function() {
 	var _resetForm = function() {
 		// $('#').reset();
 	};
-
+	var _btnInit = function(){
+		var btn =[{id:"batautzeuser",actName :"授权"},
+					{id:"batcancelautze",actName :"撤权"}];
+					PermissionAct.showBtn(btn,_menuId);
+	};
 	return {
 		init : function() {
+			_btnInit();
 			_roleId = $("#roleId").val();
 			// 此处可以优化为 只传内部方法var _param = PageTool.init(_searchData,_cols,
 			// _url);

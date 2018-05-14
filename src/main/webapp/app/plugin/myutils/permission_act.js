@@ -48,35 +48,43 @@ var PermissionAct = function() {
 		}
 		return html;
 	};
-
-	var _b = function(btn){
-				var curbtn = null;
-		var isin =_action.some(function(b){
-		if(b.id=="4444433" && b.actName ==btn.actName){
-			curbtn=b;
-			return true;
-		}
-		return false;
-	});
 	
-	if (isin) {
-		html = '<button'
-			+(btn.name?' name ="' + btn.name + '"':'')
-			+(' class ="'+ (btn.clazz ? btn.clazz :'btn')+'"')
-			+(btn.onclick?' onclick="javascript:'+btn.onclick+'"':'')
-			+(curbtn.id?' data-btnid="'+curbtn.id+'"':'')
-			+'>'
-			+(btn.icon?'<i class="'+btn.icon+'"></i>':'') 
-			+btn.actName
-			+'</button>';
-	}
-		};
+	var _showBtn =function(o,menuId){
+		var html = "";
+		if(o instanceof Array){
+			var curbtn = null;
+			for (var i = 0; i < o.length; i++) {
+				var btn = o[i];
+				var isin =false;
+					if(_action==true){
+					//内置管理员无限制
+						isin=true;
+					}else{
+						isin=_action.some(function(b){
+							if(menuId == b.menuId && b.actName ==btn.actName){
+								curbtn=b;
+								return true;
+							}
+							return false;
+						});
+					}
+				if (isin) {
+					$('#'+btn.id).removeClass('hidden'); 
+				}
+			}
+		}
+		return html;
+	};
+
 	return {
 		init : function(str) {
 			$permissionAction = eval('(' + str + ')');
 		},
 		build : function(btn,menuId) {
 			return _build(btn,menuId);
+		},
+		showBtn : function(btn,menuId) {
+			 _showBtn(btn,menuId);
 		}
 	}
 }();

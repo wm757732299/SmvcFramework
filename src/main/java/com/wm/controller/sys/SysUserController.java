@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.Page;
+import com.wm.annotation.Validate;
+import com.wm.annotation.Validate.Permission;
 import com.wm.controller.base.BaseController;
 import com.wm.mapper.entity.SysUser;
 import com.wm.model.LoginUserDetails;
@@ -152,6 +154,7 @@ public class SysUserController extends BaseController<SysUser> {
 	 * @param sysUser
 	 * @return
 	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/add_save", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -191,6 +194,7 @@ public class SysUserController extends BaseController<SysUser> {
 	 * @param sysUser
 	 * @return
 	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/edit_save", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -222,7 +226,12 @@ public class SysUserController extends BaseController<SysUser> {
 		}
 		return result;
 	}
-	
+	/**
+	 * 删除用户
+	 * @param userId
+	 * @return
+	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/del_user", method = { RequestMethod.POST,
 			RequestMethod.GET })

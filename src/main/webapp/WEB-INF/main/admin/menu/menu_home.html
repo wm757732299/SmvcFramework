@@ -49,13 +49,13 @@ html, body {
 <body>
 	<div class="divv div_0">
 
-		<button class="btn btn-primary " type="button" onclick="MenuHome.addNode()">
+		<button id="addNode" class="btn btn-primary hidden" type="button" onclick="MenuHome.addNode()">
 			<i class="icon icon-star"></i>添加节点
 		</button>
 		<button class="btn btn-warning " type="button" onclick="MenuHome.reFresh()">
 			<i class="icon icon-star"></i>刷新导航树
 		</button>
-		<button class="btn btn-danger " type="button" onclick="MenuHome.delNodes()">
+		<button id="delNode" class="btn btn-danger hidden" type="button" onclick="MenuHome.delNodes()">
 			<i class="icon icon-star"></i>删除节点
 		</button>
 		<button class="btn btn-info " type="button" onclick="MenuHome.expandAll(true)">

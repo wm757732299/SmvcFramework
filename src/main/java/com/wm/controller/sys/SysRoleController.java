@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.Page;
+import com.wm.annotation.Validate;
+import com.wm.annotation.Validate.Permission;
 import com.wm.controller.base.BaseController;
 import com.wm.mapper.entity.SysRole;
 import com.wm.service.SysRoleService;
@@ -97,6 +99,7 @@ public class SysRoleController extends BaseController<SysRole> {
 	 * @param sysRole
 	 * @return
 	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/save_role", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -131,7 +134,14 @@ public class SysRoleController extends BaseController<SysRole> {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * 删除
+	 * 
+	 * @param roleId
+	 * @return
+	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/del_role", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -187,6 +197,7 @@ public class SysRoleController extends BaseController<SysRole> {
 	 * @param sysMenu
 	 * @return
 	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/edit_save", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -300,7 +311,13 @@ public class SysRoleController extends BaseController<SysRole> {
 		return result;
 
 	}
-
+	/**
+	 * 授权
+	 * @param roleId
+	 * @param userId
+	 * @return
+	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/authorize_user", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -324,7 +341,14 @@ public class SysRoleController extends BaseController<SysRole> {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * 取消授权
+	 * @param roleId
+	 * @param userId
+	 * @return
+	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/cancel_authorize", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -374,7 +398,16 @@ public class SysRoleController extends BaseController<SysRole> {
 		}
 		return new ModelAndView("main/admin/users/authority_menu", result);
 	}
-
+	
+	/**
+	 * 保存权限菜单
+	 * @param roleId
+	 * @param selectNode
+	 * @param removeNode
+	 * @param rmNodeType
+	 * @return
+	 */
+	@Validate(permission = Permission.ORDINARY)
 	@ResponseBody
 	@RequestMapping(value = "/authority_save", method = { RequestMethod.POST,
 			RequestMethod.GET })

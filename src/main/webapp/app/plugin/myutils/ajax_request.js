@@ -21,6 +21,7 @@ var AjaxRequest = function() {
 	}
 	
 
+	//异步
 	var _asyncAjax = function(url, data, callback) {
 		$.ajax({
 			type : 'GET',
@@ -41,6 +42,7 @@ var AjaxRequest = function() {
 			success : callback
 		});
 	};
+	//同步
 	var _syncAjax = function(url, data, callback) {
 		$.ajax({
 			type : 'GET',

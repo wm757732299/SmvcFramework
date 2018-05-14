@@ -68,15 +68,17 @@ var RoleList = function() {
 		flex : false,
 		colClass : 'text-center',
 		formatter : [ function roleName (v,i) {
-			var html= '<button name ="authorityBtn" class="btn btn-mini btn-warning" onclick="javascript:RoleList.authority(\''+i+'\',\''+v+'\')" style="margin-right: 20px;"><i class="icon icon-key">权限</i></button>'
-					 +'<button name ="authorizeBtn" class="btn btn-mini btn-success" onclick="javascript:RoleList.authorize(\''+i+'\',\''+v+'\')" style="margin-right: 20px;"><i class="icon icon-hand-right">授权</i></button>'
-					 +'<button name ="editRole" class="btn btn-mini btn-info"  onclick="javascript:RoleList.editRoleWindow(\''+i+'\')" style="margin-right: 20px;"><i class="icon icon-edit"></i>编辑</button>'
-					 +'<button name ="delRole" class="btn btn-mini btn-danger" onclick="javascript:RoleList.delRole(\''+i+'\')"><i class="icon icon-trash" >删除</i></button>';
-			return html;
-
+			var btn=[
+			         {name:'authorityBtn',clazz:'btn btn-mini btn-warning',onclick:'RoleList.authority(\''+i+'\',\''+v+'\')',icon:'icon icon-key',bstyle:'margin-right: 20px;',actName:'权限'},
+			         {name:'authorizeBtn',clazz:'btn btn-mini btn-success',onclick:'RoleList.authorize(\''+i+'\',\''+v+'\')',icon:'icon icon-hand-right',bstyle:'margin-right: 20px;',actName:'角色授权'},
+			         {name:'editRole',clazz:'btn btn-mini btn-info',onclick:'RoleList.editRoleWindow(\''+i+'\')',icon:'icon icon-edit',bstyle:'margin-right: 20px;',actName:'编辑'},
+			         {name:'delRole',clazz:'btn btn-mini btn-danger',onclick:'RoleList.delRole(\''+i+'\')',icon:'icon icon-trash',actName:'删除'}
+			         ];
+			return PermissionAct.build(btn,_menuId);
 		}]
 	} ];
 	
+	var _menuId=$(window.frameElement).data("menuid");
 	var _url = basePath + "/sysrole/role_list_data.wmctl";
 	var _param=null;
 	var _data = null;
@@ -231,8 +233,8 @@ var RoleList = function() {
 			};
 		var delUrl = basePath + "/sysrole/del_role.wmctl";
 		AjaxRequest.asyncAjaxPost(delUrl, delData, function(result) {
-			if (result.success = "true") {
-				Dialog.getDelDialog().close();
+			Dialog.getDelDialog().close();
+			if (result.success == "true") {
 				_reLoadData(_param);
 			} else {
 				alert(result.msg);
@@ -247,11 +249,12 @@ var RoleList = function() {
 	//==授权==//
 	var _authorize = function(roleId,roleName){
 		var _theAuthorizeWindow = Dialog.dialog({
+			menuid:_menuId,
 			backdrop : 'static',
 			toggle : 'modal',
 			height : '600px',
 			width : '80%',
-			title : '【'+roleName+'】'+'授权',
+			title : '【'+roleName+'】'+'角色授权',
 			iframe :basePath + '/sysrole/authorize_list.wmctl?roleId='+roleId,
 			moveable : true 
 		});
@@ -260,6 +263,7 @@ var RoleList = function() {
 	//==添加权限==//
 	var _authority = function(roleId,roleName){
 		var _theAuthorityWindow = Dialog.dialog({
+			menuid:_menuId,
 			backdrop : 'static',
 			toggle : 'modal',
 			height : '600px',
@@ -275,8 +279,14 @@ var RoleList = function() {
 	var _verification = function(){
 		 
 	};
+	var _btnInit = function(){
+		var btn =[{id:"addRole",actName :"新增"},
+					{id:"batDelRole",actName :"删除"}];
+					PermissionAct.showBtn(btn,_menuId);
+	};
 	return {
 		init : function() {
+			_btnInit();
 			//此处可以优化为 只传内部方法var _param = PageTool.init(_searchData,_cols, _url);
 			_param = PageTool.init(RoleList);
 			_batDelBtnListener();

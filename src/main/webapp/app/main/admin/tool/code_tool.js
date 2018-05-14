@@ -21,7 +21,7 @@ var CodeTool = function() {
 		var html = "";
 		var url = basePath + "/code/create_code.wmctl";
 		AjaxRequest.asyncAjaxPost(url, null, function(result) {
-			if (result.success = "true") {
+			if (result.success == "true") {
 				$("#databset_tables").empty();
 				_tables = result.data;
 				for (var i = 0; i < _tables.length; i++) {
@@ -56,7 +56,7 @@ var CodeTool = function() {
 			if (data) {
 				data.codeType = type;
 				AjaxRequest.asyncAjaxPost(url, data, function(result) {
-					if (result.success = "true") {
+					if (result.success == "true") {
 						$("#" + type).empty();
 						$("#" + type).append(result.data);
 						$('pre code').each(function(i, block) {

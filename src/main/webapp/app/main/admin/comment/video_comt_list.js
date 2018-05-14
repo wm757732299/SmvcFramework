@@ -160,7 +160,7 @@ var VideoComtList = function() {
 			};
 		var delUrl = basePath + "/videoComment/del_comt.wmctl";
 		AjaxRequest.asyncAjaxPost(delUrl, delData, function(result) {
-			if (result.success = "true") {
+			if (result.success == "true") {
 				Dialog.getDelDialog().close();
 				_reLoadData(_param);
 			} else {

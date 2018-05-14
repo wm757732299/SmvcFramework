@@ -182,7 +182,8 @@ public class LoginUserDetails extends User {
 		String[] arr = new String[action.size()];
 		for (int i = 0; i < action.size(); i++) {
 			SysAction sa = action.get(i);
-			 arr[i] = sa.getId()+(sa.getActUrl()==null?"":sa.getActUrl());
+//			 arr[i] = sa.getId()+(sa.getActUrl()==null?"":sa.getActUrl());
+			 arr[i] = sa.getActUrl()==null?"":sa.getActUrl();
 //			if (sa.getActUrl() == null || sa.getActUrl().length() == 0)
 //				continue;
 //			arr[i] = sa.getActUrl();

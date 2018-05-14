@@ -74,21 +74,18 @@ var MenuHome = function() {
 				flex : false,
 				colClass : 'text-center',
 				formatter : [ function uType(v, i) {
-					var html =
-					// '<button name ="deluser" class="btn btn-mini"
-					// onclick="javascript:UserList.delUser(\''
-					// + i
-					// + '\')"><i class="icon icon-trash"
-					// style="color:red">删除</i></button>'
-					// +
-					'<button name ="edituser" class="btn btn-mini"  onclick="javascript:MenuHome.editMenuWindow(\''
-							+ i
-							+ '\')"><i class="icon icon-edit"></i>编辑</button>';
-					return html;
-
+//					var html = '<button name ="editMenu" class="btn btn-mini"  onclick="javascript:MenuHome.editMenuWindow(\''
+//							+ i
+//							+ '\')"><i class="icon icon-edit"></i>编辑</button>';
+//					return html;
+					var btn=[
+					         {name:'editMenu',clazz:'btn btn-mini',onclick:'MenuHome.editMenuWindow(\''+i+'\')',icon:'icon icon-edit',actName:'编辑'}
+					        ];
+					return PermissionAct.build(btn,_menuId);
 				} ]
 			} ];
-
+	
+	var _menuId=$(window.frameElement).data("menuid");
 	var _url = basePath + "/menu/menu_tree.wmctl";
 	var _param = null;
 	var _data = null;
@@ -316,7 +313,7 @@ var MenuHome = function() {
 	// ==获得导航树数据==//
 	var _getTree = function() {
 		var url = basePath + "/menu/menu_tree.wmctl";
-		AjaxRequest.asyncAjax(url, null, function(result) {
+		AjaxRequest.syncAjax(url, null, function(result) {
 			if (result.success == "true") {
 				var json = result.data;
 				_showTree(json);
@@ -468,11 +465,17 @@ var MenuHome = function() {
 			});
 		}
 	};
-
+	var _btnInit = function(){
+		var btn =[{id:"addNode",actName :"新增"},
+					{id:"delNode",actName :"删除"}];
+					PermissionAct.showBtn(btn,_menuId);
+	};
 	return {
 		init : function() {
+			_btnInit();
 			_getTree();
 			// _treeObj = $.fn.zTree.getZTreeObj(_zTreeId);
+			
 		},
 		addNode : function() {
 			_addNode();

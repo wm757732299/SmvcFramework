@@ -212,8 +212,9 @@ var UserList = function() {
 			};
 		var delUrl = basePath + "/sysuser/del_user.wmctl";
 		AjaxRequest.asyncAjaxPost(delUrl, delData, function(result) {
-			if (result.success = "true") {
-				Dialog.getDelDialog().close();
+
+			Dialog.getDelDialog().close();
+			if (result.success == "true") {
 				_reLoadData(_param);
 			} else {
 				alert(result.msg);
@@ -224,8 +225,15 @@ var UserList = function() {
 	var _resetForm= function(){
 		//$('#').reset();
 	};
+	var _btnInit = function(){
+		var btn =[{id:"adduser",actName :"新增"},
+					{id:"edituser",actName :"编辑"},
+					{id:"batdeluser",actName :"删除"}];
+					PermissionAct.showBtn(btn,_menuId);
+	};
 	return {
 		init : function() {
+			_btnInit();
 			//此处可以优化为 只传内部方法var _param = PageTool.init(_searchData,_cols, _url);
 			_param = PageTool.init(UserList);
 			_batDelBtnListener();

@@ -65,7 +65,8 @@ var AuthorityMenu = function() {
 						return "--";
 				} ]
 			}];
-
+	
+	var _menuId=$(window.frameElement).data("menuid");
 	var _param = null;
 	var _data = null;
 	var _roleId=null;
@@ -280,7 +281,6 @@ var AuthorityMenu = function() {
     var _add = function(){
     	var btns = $("#act_wx .btn-success");
     	var yxDiv = $("#act_yx");
-    	console.log(btns);
     	var arr =[];
     	if(btns.length>0){
         	$.each(btns,function(i,v){
@@ -292,19 +292,26 @@ var AuthorityMenu = function() {
         		yxDiv.append(vv);
     	    });
         	var url= basePath + "/sysAction/add_act.wmctl";
-        	var data={actIds:arr,
-        			roleId:_roleId};
-        	
+        	var data={actIds:arr,roleId:_roleId};
         	AjaxRequest.asyncAjaxPost(url, data, function(result) {
         		
-        		console.log(result);
-        		
+        		if(result.success=='false'){
+        			var wxDiv = $("#act_wx");
+        			$.each(btns,function(i,v){
+                		var vv=$(v);
+                		arr=[];
+                		vv.addClass("btn-success");
+                		vv.removeClass("btn-warning");
+                		wxDiv.append(vv);
+        			});
+        			alert(result.msg);
+        		}
         	});
     	}
     };
     var _remove = function(){
     	var btns = $("#act_yx .btn-success");
-    	var yxDiv = $("#act_wx");
+    	var wxDiv = $("#act_wx");
     	var arr =[];
     	if(btns.length>0){
         	$.each(btns,function(i,v){
@@ -313,23 +320,34 @@ var AuthorityMenu = function() {
         		v.remove();
         		vv.removeClass("btn-success");
         		vv.addClass("btn-warning");
-        		yxDiv.append(vv);
+        		wxDiv.append(vv);
     	});
         	var url= basePath + "/sysAction/remove_act.wmctl";
-        	var data={actIds:arr,
-        			roleId:_roleId};
-        	
+        	var data={actIds:arr,roleId:_roleId};
         	AjaxRequest.asyncAjaxPost(url, data, function(result) {
         		
-        		console.log(result);
-        		
+        		if(result.success=='false'){
+        			var yxDiv = $("#act_yx");
+        			$.each(btns,function(i,v){
+                		var vv=$(v);
+                		arr=[];
+                		vv.addClass("btn-success");
+                		vv.removeClass("btn-warning");
+                		yxDiv.append(vv);
+        			});
+        			 alert(result.msg);
+        		}
         	});
     	}
     };
+	var _btnInit = function(){
+		var btn =[{id:"saveMenuAuth",actName :"保存权限"}];
+		PermissionAct.showBtn(btn,_menuId);
+	};
 	return {
 		init : function() {
+			_btnInit();
 			///$('#dashboard').dashboard({draggable: true});
-			
 			_roleId = $("#roleId").val();
 			_getTree();
 		},

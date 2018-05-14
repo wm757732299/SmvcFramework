@@ -220,7 +220,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 	 * @param sysMenu
 	 * @return
 	 */
-	@Validate(permission = Permission.ORDINARY)
+	@Validate(permission = Permission.SUPER)
 	@ResponseBody
 	@RequestMapping(value = "/save_menu", method = { RequestMethod.POST,
 			RequestMethod.GET })
@@ -342,7 +342,7 @@ public class SysMenuController extends BaseController<SysMenu> {
 	 * @param sysMenu
 	 * @return
 	 */
-	@Validate(permission = Permission.ORDINARY)
+	@Validate(permission = Permission.SUPER)
 	@ResponseBody
 	@RequestMapping(value = "/del_menu", method = { RequestMethod.POST,
 			RequestMethod.GET })

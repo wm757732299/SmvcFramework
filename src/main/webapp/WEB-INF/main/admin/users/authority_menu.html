@@ -87,7 +87,7 @@ html, body {
 	<input type="hidden" id="roleId" name="roleId" value="${data!''}" readonly="readonly" placeholder="角色id">
 
 	<div class="divv div_0">
-		<button class="btn btn-primary " type="button" onclick="AuthorityMenu.saveRoleMenu()">
+		<button id="saveMenuAuth" class="btn btn-primary hidden" type="button" onclick="AuthorityMenu.saveRoleMenu()">
 			<i class="icon icon-star"></i>保存权限
 		</button>
 		<button class="btn btn-warning " type="button" onclick="AuthorityMenu.reFresh()">
